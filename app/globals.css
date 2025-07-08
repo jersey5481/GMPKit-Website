@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 142 76% 60%; /* Matching GMPKit green */
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 142 76% 60%; /* Matching GMPKit green */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Accessibility Widget Styles */
+.accessibility-high-contrast {
+  filter: contrast(150%) brightness(1.2);
+}
+
+.accessibility-high-contrast * {
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.accessibility-large-cursor,
+.accessibility-large-cursor * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M2 2l8 20 4-8 8-4z" fill="black"/><path d="M2 2l8 20 4-8 8-4z" fill="white" stroke="black" stroke-width="1"/></svg>'),
+    auto !important;
+}
+
+.accessibility-reduced-motion,
+.accessibility-reduced-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.accessibility-focus-outlines *:focus {
+  outline: 3px solid #2563eb !important;
+  outline-offset: 2px !important;
+}
+
+.accessibility-focus-outlines button:focus,
+.accessibility-focus-outlines a:focus,
+.accessibility-focus-outlines input:focus,
+.accessibility-focus-outlines textarea:focus,
+.accessibility-focus-outlines select:focus {
+  outline: 3px solid #2563eb !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2) !important;
+}
+
+/* High contrast mode specific adjustments */
+.accessibility-high-contrast .bg-primary {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.accessibility-high-contrast .text-gray-500,
+.accessibility-high-contrast .text-gray-600,
+.accessibility-high-contrast .text-gray-700 {
+  color: #000000 !important;
+}
+
+.accessibility-high-contrast .bg-gray-50,
+.accessibility-high-contrast .bg-gray-100 {
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+}
+
+.accessibility-high-contrast .border {
+  border-color: #000000 !important;
+  border-width: 2px !important;
+}
+
+/* Ensure text remains readable in high contrast */
+.accessibility-high-contrast .text-white {
+  color: #ffffff !important;
+}
+
+.accessibility-high-contrast .bg-white {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
