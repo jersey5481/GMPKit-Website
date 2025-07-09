@@ -3,6 +3,7 @@ import Section from "@/components/ui/Section"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle, Plus, Star } from "lucide-react"
+import Link from "next/link"
 
 const CORE_OFFERING = {
   title: "BatchTrak™ Operational Transformation",
@@ -111,9 +112,11 @@ export default function PackagesSection() {
               </div>
 
               <div className="text-center pt-6 border-t">
-                <Button size="lg" className="px-8">
-                  Discover Your Path Forward
-                </Button>
+                <Link href="/contact">
+                  <Button size="lg" className="px-8">
+                    Discover Your Path Forward
+                  </Button>
+                </Link>
                 <p className="text-sm text-gray-500 mt-2">We'll help you choose the right combination for your needs</p>
               </div>
             </CardContent>

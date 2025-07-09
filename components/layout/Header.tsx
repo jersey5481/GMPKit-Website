@@ -24,7 +24,9 @@ export default function Header({ currentPage }: HeaderProps) {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-          <Image src="/gmpkit-logo.svg" width={120} height={120} alt="GMPKit Logo" className="rounded" />
+          <div style={{ position: 'relative', width: '180px', height: '60px' }}>
+            <Image src="/gmpkit-logo.svg" fill alt="GMPKit Logo" className="rounded object-contain" priority />
+          </div>
         </Link>
 
         {/* Desktop Navigation */}

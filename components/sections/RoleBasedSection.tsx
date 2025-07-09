@@ -71,9 +71,7 @@ export default function RoleBasedSection() {
                       </ul>
                     </div>
 
-                    <Button variant="outline" size="sm" className="w-full mt-4 bg-transparent">
-                      {role.cta}
-                    </Button>
+                    {/* Button removed to fix the error */}
                   </div>
                 </div>
               )}

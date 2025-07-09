@@ -1,31 +1,42 @@
-import type React from "react"
 import { cn } from "@/lib/utils"
+import type { ReactNode } from "react"
+
+/**
+ * Section
+ * ----------------------------------------------------------------------------
+ * A light wrapper around the native <section> element that standardises
+ * vertical padding and background colour while **never** forwarding its own
+ * props to the DOM.
+ */
+
+type Background = "white" | "gray" | "primary"
+type Padding = "none" | "sm" | "lg" | "xl"
 
 interface SectionProps {
-  children: React.ReactNode
-  background?: "white" | "gray" | "primary"
-  padding?: "sm" | "md" | "lg" | "xl"
+  children: ReactNode
   className?: string
-  id?: string
+  background?: Background
+  padding?: Padding
 }
 
-const backgroundClasses = {
+/* Tailwind helpers */
+const backgroundClasses: Record<Background, string> = {
   white: "bg-white",
   gray: "bg-gray-50",
   primary: "bg-primary text-primary-foreground",
 }
 
-const paddingClasses = {
-  sm: "py-4",
-  md: "py-8",
-  lg: "py-12",
-  xl: "py-16",
+const paddingClasses: Record<Padding, string> = {
+  none: "",
+  sm: "py-8 md:py-12",
+  lg: "py-12 md:py-16",
+  xl: "py-16 md:py-24",
 }
 
-export default function Section({ children, background = "white", padding = "lg", className = "", id }: SectionProps) {
+export default function Section({ children, className, background = "white", padding = "lg" }: SectionProps) {
   return (
-    <section className={cn(backgroundClasses[background], paddingClasses[padding], className)} id={id}>
-      <div className="container mx-auto px-4">{children}</div>
+    <section className={cn(backgroundClasses[background], paddingClasses[padding], "w-full", className)}>
+      {children}
     </section>
   )
 }
