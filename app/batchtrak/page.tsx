@@ -303,7 +303,6 @@ export default function BatchTrakPage() {
                 subtitle={feature.subtitle}
                 items={feature.items}
                 buttonLabel={feature.buttonLabel}
-                onButtonClick={() => console.log(`Clicked: ${feature.buttonLabel}`)}
                 className="h-full"
               />
             ))}
