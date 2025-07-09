@@ -1,14 +1,11 @@
 import PageLayout from "@/components/layout/PageLayout"
 import Section from "@/components/ui/Section"
-import { CheckCircle, Users, Target, Zap } from "lucide-react"
+import { CheckCircle, Users, Target, Zap, Clock, Shield, Rocket, HeadphonesIcon } from "lucide-react"
 import { generateMetadata as generateSEOMetadata, generateServiceSchema } from "@/lib/seo"
 import type { Metadata } from "next"
 import CTASection from "@/components/shared/CTASection"
-
-// Add imports
-import PackageGrid from "@/components/shared/PackageGrid"
 import TimelineSection from "@/components/shared/TimelineSection"
-import { IMPLEMENTATION_PACKAGES, IMPLEMENTATION_TIMELINE } from "@/lib/shared-data"
+import { IMPLEMENTATION_TIMELINE } from "@/lib/shared-data"
 
 export const metadata: Metadata = generateSEOMetadata({
   title: "BatchTrak™ Implementation Services | Expert Deployment Support",
@@ -57,24 +54,47 @@ const implementationApproach = [
 
 const whyImplementationMatters = [
   {
-    title: "We've Seen What Works (and What Doesn't)",
+    title: "Implementation Expertise is Our Core Differentiator",
     description:
-      "Our team has implemented batch operations improvements across dozens of sites. We know the common pitfalls and how to avoid them.",
+      "We don't just provide software—we ensure transformation. Our operations veterans have guided dozens of sites through successful LEAN implementations.",
   },
   {
-    title: "Technology + Change Management",
+    title: "Coaching-Driven Transformation",
     description:
-      "Software alone doesn't drive results. We combine BatchTrak™ configuration with proven change management to ensure lasting adoption.",
+      "Technology enables change, but coaching drives results. We combine BatchTrak™ deployment with hands-on LEAN coaching to ensure lasting operational improvements.",
   },
   {
-    title: "Built for Your Reality",
+    title: "Foundation-First Approach",
     description:
-      "We configure BatchTrak™ to work with your existing systems and processes, not force you to change everything to fit the software.",
+      "Start with visibility essentials, then build your operational capabilities. We configure BatchTrak™ to work with your current reality while preparing for your transformation journey.",
   },
   {
-    title: "Ongoing Partnership",
+    title: "Partnership Beyond Go-Live",
     description:
-      "Implementation doesn't end at go-live. We provide ongoing coaching and optimization to help you get maximum value from BatchTrak™.",
+      "Implementation is just the beginning. We provide ongoing coaching, optimization, and upgrade pathways to help you achieve continuous operational excellence.",
+  },
+]
+
+const implementationBenefits = [
+  {
+    icon: Target,
+    title: "Strategic Assessment",
+    description: "Complete analysis of your current workflows and identification of highest-impact improvements",
+  },
+  {
+    icon: Users,
+    title: "Collaborative Configuration",
+    description: "Work directly with our experts to configure BatchTrak™ to your exact operational needs",
+  },
+  {
+    icon: Rocket,
+    title: "Hands-On Training",
+    description: "Comprehensive training for all user roles to ensure confident adoption from day one",
+  },
+  {
+    icon: HeadphonesIcon,
+    title: "Go-Live Support",
+    description: "Real-time support during launch with continuous monitoring and optimization",
   },
 ]
 
@@ -155,15 +175,36 @@ export default function ImplementationPage() {
         background="white"
       />
 
-      {/* Implementation Packages */}
+      {/* Simplified Implementation Promise */}
       <Section background="gray" padding="xl">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">Implementation Included with Every Package</h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Implementation expertise is built into every BatchTrak™ package—no hidden costs, no surprises.
-          </p>
+          <h2 className="text-4xl font-bold mb-4">30-Day Implementation: Your Foundation for Success</h2>
 
-          <PackageGrid packages={IMPLEMENTATION_PACKAGES} showDuration={true} showIncluded={true} />
+          <div className="bg-primary/10 border-2 border-primary/20 rounded-lg p-8 mb-8">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <Shield className="h-8 w-8 text-primary" />
+              <Clock className="h-8 w-8 text-primary" />
+            </div>
+            <p className="text-xl font-semibold text-gray-800 mb-4">
+              Every BatchTrak™ package includes our proven 30-day implementation process—from initial assessment to full
+              go-live.
+            </p>
+            <p className="text-lg text-gray-600">
+              No additional fees, no surprises. Just expert guidance from operations veterans who ensure your success.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {implementationBenefits.map((benefit, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 mb-4 mx-auto">
+                  <benefit.icon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-lg font-bold mb-2 text-center">{benefit.title}</h3>
+                <p className="text-sm text-gray-600 text-center">{benefit.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </Section>
 
@@ -199,7 +240,6 @@ export default function ImplementationPage() {
         title="Ready to Start Your BatchTrak™ Implementation?"
         description="Let's discuss your specific needs and create an implementation plan that ensures your success from day one."
         primaryButton={{ text: "Schedule Implementation Consultation", href: "/contact" }}
-        secondaryButton={{ text: "Download Implementation Guide" }}
       />
 
       {/* Add structured data */}

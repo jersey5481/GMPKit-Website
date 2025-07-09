@@ -8,8 +8,7 @@ import { Monitor, Workflow, Brain, CheckCircle, AlertTriangle, Eye, TrendingDown
 import { generateMetadata as generateSEOMetadata, seoConfigs, generateSoftwareApplicationSchema } from "@/lib/seo"
 import type { Metadata } from "next"
 import Image from "next/image"
-import { BATCHTRAK_PACKAGES } from "@/lib/shared-data"
-import PackageGrid from "@/components/shared/PackageGrid"
+import PackagesSection from "@/components/sections/PackagesSection"
 
 export const metadata: Metadata = generateSEOMetadata(seoConfigs.batchtrak)
 
@@ -313,25 +312,7 @@ export default function BatchTrakPage() {
       </Section>
 
       {/* Packages Section */}
-      <Section background="gray" padding="xl">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">Choose Your Transformation Level</h2>
-          <p className="text-xl text-gray-600 mb-8">
-            From getting off spreadsheets to building a command center for multi-site operations. Each tier combines
-            BatchTrak™ platform with the methodology and support to ensure your transformation succeeds.
-          </p>
-
-          <PackageGrid packages={BATCHTRAK_PACKAGES} />
-
-          <div className="mt-8 bg-blue-50 p-6 rounded-lg">
-            <h3 className="text-lg font-bold mb-2">Not Just Software—Complete Transformation Support</h3>
-            <p className="text-gray-600">
-              Every tier includes platform configuration, LEAN methodology integration, implementation expertise, and
-              ongoing coaching to ensure you achieve measurable results, not just software deployment.
-            </p>
-          </div>
-        </div>
-      </Section>
+      <PackagesSection />
 
       {/* Value Metrics */}
       <ValueMetricsSection />
@@ -357,4 +338,20 @@ export default function BatchTrakPage() {
               <p className="text-sm text-gray-600">Manufacturing Principles</p>
             </div>
             <div>
-              <div className="text\
+              <div className="text-3xl font-bold text-primary mb-2">30</div>
+              <p className="text-sm text-gray-600">Day Implementation</p>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-primary mb-2">24/7</div>
+              <p className="text-sm text-gray-600">Real-time Visibility</p>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-primary mb-2">100%</div>
+              <p className="text-sm text-gray-600">Batch Accountability</p>
+            </div>
+          </div>
+        </div>
+      </Section>
+    </PageLayout>
+  )
+}

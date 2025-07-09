@@ -13,13 +13,6 @@ interface FeatureCardProps {
   className?: string
 }
 
-const CheckItem = ({ text }: { text: string }) => (
-  <div className="flex items-start space-x-3">
-    <CheckCircle className="text-green-500 mt-1 w-4 h-4 flex-shrink-0" />
-    <span className="text-sm leading-relaxed">{text}</span>
-  </div>
-)
-
 export default function FeatureCard({
   title,
   subtitle,
@@ -38,7 +31,10 @@ export default function FeatureCard({
 
         <div className="space-y-4 flex-1">
           {items.map((item, index) => (
-            <CheckItem key={index} text={item} />
+            <div key={index} className="flex items-start space-x-3">
+              <CheckCircle className="text-green-500 mt-1 w-4 h-4 flex-shrink-0" />
+              <span className="text-sm leading-relaxed">{item}</span>
+            </div>
           ))}
         </div>
 

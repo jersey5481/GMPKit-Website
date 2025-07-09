@@ -186,33 +186,13 @@ export default function TrainingPage() {
             from day one.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg text-center">
-              <h3 className="font-bold mb-2">Standard Package</h3>
-              <p className="text-sm text-gray-600 mb-3">Foundation Training included</p>
-              <ul className="text-sm space-y-1 text-left">
-                <li>• Core platform training</li>
-                <li>• Role-based sessions</li>
-                <li>• Documentation & support</li>
-              </ul>
-            </div>
-            <div className="bg-white p-6 rounded-lg text-center border-2 border-primary">
-              <h3 className="font-bold mb-2">Advanced Package</h3>
-              <p className="text-sm text-gray-600 mb-3">Comprehensive Training + Coaching</p>
-              <ul className="text-sm space-y-1 text-left">
-                <li>• All Standard training</li>
-                <li>• Advanced operations training</li>
-                <li>• 90-day coaching program</li>
-              </ul>
-            </div>
-            <div className="bg-white p-6 rounded-lg text-center">
-              <h3 className="font-bold mb-2">Enterprise Package</h3>
-              <p className="text-sm text-gray-600 mb-3">Custom Training Programs</p>
-              <ul className="text-sm space-y-1 text-left">
-                <li>• All Advanced training</li>
-                <li>• Leadership development</li>
-                <li>• Train-the-trainer program</li>
-              </ul>
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
+              <h3 className="text-2xl font-bold mb-4">Comprehensive Training Included with Every Package</h3>
+              <p className="text-lg text-gray-700">
+                Every BatchTrak™ engagement includes role-based training, hands-on coaching, and ongoing
+                support—ensuring your team is ready to succeed from day one.
+              </p>
             </div>
           </div>
         </div>
