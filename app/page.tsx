@@ -49,7 +49,6 @@ export default function HomePage() {
         title="See BatchTrak in Action"
         description="Experience how BatchTrak™ can transform your batch operations with a personalized demonstration tailored to your use case."
         primaryButton={{ text: "Schedule a Demo", href: "/contact" }}
-        secondaryButton={{ text: "Download Product Overview" }}
       />
 
       {/* Add structured data */}
