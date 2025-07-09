@@ -29,7 +29,7 @@ export interface Package {
 export interface RoleData {
   title: string
   subtitle: string
-  pains: string[]
+  aspirations: string[]
   benefits: string[]
   cta: string
 }
@@ -94,6 +94,9 @@ export const BATCHTRAK_PACKAGES: Package[] = [
     popular: false,
   },
 ]
+
+// Alias for convenience ― used by the Implementation page
+export const PACKAGES = BATCHTRAK_PACKAGES
 
 /* -------------------------------------------------------------------------- */
 /*                         IMPLEMENTATION SERVICE PACKAGES                    */
@@ -161,25 +164,25 @@ export const ROLE_BASED_CONTENT: RoleData[] = [
   {
     title: "Site Head - Quality/Manufacturing",
     subtitle: "Executive Operations Leadership",
-    pains: [
-      "Limited visibility into lot disposition pipeline and release readiness",
-      "Difficulty anticipating revenue impact from batch delays",
-      "Site success rate below target/site deviation rate above target",
+    aspirations: [
+      "Have complete visibility into your lot disposition pipeline and release readiness at all times?",
+      "Accurately predict revenue impact and timing from your production schedule?",
+      "Achieve and exceed your site success rate targets while minimizing deviations?",
     ],
     benefits: [
       "Executive dashboard showing product disposition status and revenue timeline",
       "Resource deployment insights for batch record review and deviation investigation",
-      "Provides framework for reliability and continuous improvement",
+      "Framework for reliability and continuous improvement that drives results",
     ],
     cta: "Contact Us",
   },
   {
     title: "Operations Manager",
     subtitle: "Cross-Functional Coordination",
-    pains: [
-      "Searching for batch status and roadblocks across shifts",
-      "Poor communication coordination between departments",
-      "Reactive management instead of proactive continuous improvement",
+    aspirations: [
+      "Know the exact status and roadblocks of every batch across all shifts instantly?",
+      "Have seamless communication and coordination between all departments?",
+      "Lead proactive continuous improvement instead of fighting fires?",
     ],
     benefits: [
       "Real-time batch tracking against quality release process",
@@ -191,10 +194,10 @@ export const ROLE_BASED_CONTENT: RoleData[] = [
   {
     title: "Quality Assurance User",
     subtitle: "Documentation & Compliance",
-    pains: [
-      "Manual tracking of production and laboratory record status",
-      "Inefficient communication of required corrections",
-      "Missed disposition timelines due to coordination delays",
+    aspirations: [
+      "Automatically track all production and laboratory record status without manual effort?",
+      "Communicate required corrections efficiently and see them resolved quickly?",
+      "Never miss a disposition timeline due to coordination issues?",
     ],
     benefits: [
       "Automated tracking of MBR and test method completion status",
@@ -206,10 +209,10 @@ export const ROLE_BASED_CONTENT: RoleData[] = [
   {
     title: "Frontline Leader",
     subtitle: "Tactical Operations Supervision",
-    pains: [
-      "Delayed alerts for workflow issues affecting team productivity",
-      "Unclear visibility into document review status and exceptions",
-      "Difficulty building optimized daily resource plans",
+    aspirations: [
+      "Get instant alerts for workflow issues before they impact your team's productivity?",
+      "Have crystal-clear visibility into document review status and exceptions?",
+      "Build optimized daily resource plans with confidence?",
     ],
     benefits: [
       "Real-time alerts for delays and workflow bottlenecks",
@@ -221,10 +224,10 @@ export const ROLE_BASED_CONTENT: RoleData[] = [
   {
     title: "Operations Planner",
     subtitle: "Strategic Planning & Scheduling",
-    pains: [
-      "Inaccurate data on durations, delays, and capacity constraints",
-      "Complex scheduling activities without clear plant capacity visibility",
-      "Difficulty modeling optimal manufacturing schedules at scale",
+    aspirations: [
+      "Have accurate, real-time data on durations, delays, and capacity constraints?",
+      "Create optimal manufacturing schedules with complete plant capacity visibility?",
+      "Model and optimize manufacturing schedules at scale with confidence?",
     ],
     benefits: [
       "Accurate capacity modeling with real-time constraint visibility",
@@ -236,10 +239,10 @@ export const ROLE_BASED_CONTENT: RoleData[] = [
   {
     title: "IT / Admin",
     subtitle: "System Integration & Management",
-    pains: [
-      "Integration complexity creating system reliability issues",
-      "User management overhead across multiple platforms",
-      "Downtime costs from system maintenance",
+    aspirations: [
+      "Have simple integrations that actually enhance system reliability?",
+      "Manage users centrally across all platforms without overhead?",
+      "Eliminate downtime costs from system maintenance completely?",
     ],
     benefits: [
       "Simple integrations that enhance system reliability",

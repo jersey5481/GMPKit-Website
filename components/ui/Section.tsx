@@ -1,4 +1,6 @@
 import type React from "react"
+import { cn } from "@/lib/utils"
+
 interface SectionProps {
   children: React.ReactNode
   background?: "white" | "gray" | "primary"
@@ -7,12 +9,10 @@ interface SectionProps {
   id?: string
 }
 
-import { cn } from "@/lib/utils"
-
 const backgroundClasses = {
   white: "bg-white",
-  gray: "bg-gray-100",
-  primary: "bg-primary",
+  gray: "bg-gray-50",
+  primary: "bg-primary text-primary-foreground",
 }
 
 const paddingClasses = {
@@ -22,17 +22,10 @@ const paddingClasses = {
   xl: "py-16",
 }
 
-export default function Section({
-  children,
-  background = "white",
-  padding = "lg",
-  className = "",
-  id,
-  ...props
-}: SectionProps) {
+export default function Section({ children, background = "white", padding = "lg", className = "", id }: SectionProps) {
   return (
-    <section className={cn(backgroundClasses[background], paddingClasses[padding], className)} id={id} {...props}>
-      {children}
+    <section className={cn(backgroundClasses[background], paddingClasses[padding], className)} id={id}>
+      <div className="container mx-auto px-4">{children}</div>
     </section>
   )
 }

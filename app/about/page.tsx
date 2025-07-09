@@ -151,7 +151,7 @@ export default function AboutPage() {
             challenges.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-white" asChild>
+            <Button size="lg" asChild>
               <a href="/contact">Contact Us</a>
             </Button>
             <Button variant="outline" size="lg" asChild>

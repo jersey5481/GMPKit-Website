@@ -48,19 +48,19 @@ export default function RoleBasedSection() {
                 <div className="px-6 pb-6 border-t border-gray-100">
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-semibold text-red-600 mb-2">Current Challenges:</h4>
+                      <h4 className="font-semibold text-blue-600 mb-2">What if you could...</h4>
                       <ul className="space-y-1">
-                        {role.pains.map((pain, painIndex) => (
-                          <li key={painIndex} className="text-sm text-gray-600 flex items-start">
-                            <span className="text-red-500 mr-2">•</span>
-                            {pain}
+                        {role.aspirations.map((aspiration, aspirationIndex) => (
+                          <li key={aspirationIndex} className="text-sm text-gray-600 flex items-start">
+                            <span className="text-blue-500 mr-2">?</span>
+                            {aspiration}
                           </li>
                         ))}
                       </ul>
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-primary mb-2">How BatchTrak Helps:</h4>
+                      <h4 className="font-semibold text-primary mb-2">Your New Reality:</h4>
                       <ul className="space-y-1">
                         {role.benefits.map((benefit, benefitIndex) => (
                           <li key={benefitIndex} className="text-sm text-gray-600 flex items-start">
