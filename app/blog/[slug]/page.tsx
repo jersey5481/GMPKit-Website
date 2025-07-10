@@ -10,6 +10,7 @@ import { ArrowLeft } from 'lucide-react';
 import YouTubeEmbed from '@/components/blog/YouTubeEmbed';
 import VimeoEmbed from '@/components/blog/VimeoEmbed';
 import VideoPlayer from '@/components/blog/VideoPlayer';
+import Callout from '@/app/components/Callout';
 
 export const revalidate = 60; // Revalidate this page every 60 seconds
 
@@ -18,10 +19,34 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const resolvedParams = await Promise.resolve(params);
   const post = await getPost(resolvedParams.slug);
   
-  return {
-    title: `${post?.title || 'Blog Post'} | GMPKit`,
-    description: post?.excerpt || 'Read this insightful article from GMPKit on batch manufacturing operations.',
+  // Use SEO fields if available, otherwise fall back to defaults
+  const title = post?.seo?.metaTitle || post?.title || 'Blog Post';
+  const description = post?.seo?.metaDescription || post?.excerpt || 'Read this insightful article from GMPKit on batch manufacturing operations.';
+  
+  const metadata: Metadata = {
+    title: `${title} | GMPKit`,
+    description: description,
   };
+  
+  // Add keywords if available
+  if (post?.seo?.keywords && post.seo.keywords.length > 0) {
+    metadata.keywords = post.seo.keywords;
+  }
+  
+  // Add OpenGraph metadata
+  metadata.openGraph = {
+    title: title,
+    description: description,
+    type: 'article',
+    url: `https://gmpkit.com/blog/${post?.slug?.current || params.slug}`,
+    images: post?.seo?.socialImage ? 
+      [{ url: urlFor(post.seo.socialImage).url(), width: 1200, height: 630, alt: title }] : 
+      (post?.mainImage ? 
+        [{ url: urlFor(post.mainImage).url(), width: 1200, height: 630, alt: title }] : 
+        [])
+  };
+  
+  return metadata;
 }
 
 interface SanityImage {
@@ -49,7 +74,17 @@ interface Post {
   mainImage?: SanityImage;
   content?: any;
   categories?: string[];
-  author?: Author;
+  tags?: string[];
+  featured?: boolean;
+  author?: Author; // Legacy field
+  authors?: Author[]; // New field for multiple authors
+  relatedPosts?: Post[];
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    keywords?: string[];
+    socialImage?: SanityImage;
+  };
 }
 
 // Define the components for the PortableText renderer
@@ -64,6 +99,9 @@ const components: Partial<import('@portabletext/react').PortableTextReactCompone
           className="object-contain"
         />
       </div>
+    ),
+    callout: ({ value }: any) => (
+      <Callout value={value} />
     ),
     youtube: ({ value }: any) => (
       <YouTubeEmbed 
@@ -141,10 +179,25 @@ async function getPost(slug: string): Promise<Post | null> {
         title,
         slug,
         publishedAt,
+        excerpt,
         mainImage,
         content,
+        featured,
         "categories": categories[]->title,
-        "author": author->{name, image, bio, slug}
+        "tags": tags[]->title,
+        "author": author->{name, image, bio, slug},
+        "authors": authors[]->{name, image, bio, slug},
+        "relatedPosts": relatedPosts[]->{
+          _id,
+          title,
+          slug,
+          publishedAt,
+          excerpt,
+          mainImage,
+          "author": author->name,
+          "authors": authors[]->name
+        },
+        seo
       }`,
       { slug }
     );
@@ -200,50 +253,100 @@ export default async function BlogPost({ params }: { params: { slug: string } })
             month: 'long',
             day: 'numeric',
           })}
-          {post.author && ` • By ${post.author.name}`}
+          {post.authors && post.authors.length > 0
+            ? ` • By ${post.authors.map(author => author.name).join(', ')}`
+            : post.author && ` • By ${post.author.name}`
+          }
         </div>
       </div>
       
       {post.mainImage && (
-        <div className="relative w-full h-96 mb-8">
+        <div className="relative w-full h-[400px] md:h-[500px] mb-8 rounded-lg overflow-hidden">
           <Image
             src={urlFor(post.mainImage).url()}
             alt={post.title}
             fill
-            className="object-cover rounded-lg"
+            priority
+            className="object-cover"
           />
         </div>
       )}
       
-      {post.categories && post.categories.length > 0 && (
-        <div className="mb-8 flex flex-wrap gap-2">
-          {post.categories?.map((category: string) => (
+      {/* Categories and Tags */}
+      <div className="mb-8 flex flex-wrap gap-2">
+        {post.categories && post.categories.length > 0 && 
+          post.categories.map((category: string) => (
             <span
-              key={category}
+              key={`category-${category}`}
               className="bg-primary/10 text-primary-foreground px-3 py-1 rounded-full"
             >
               {category}
             </span>
-          ))}
-        </div>
-      )}
+          ))
+        }
+        {post.tags && post.tags.length > 0 && 
+          post.tags.map((tag: string) => (
+            <span
+              key={`tag-${tag}`}
+              className="bg-secondary/20 text-secondary-foreground px-3 py-1 rounded-full"
+            >
+              #{tag}
+            </span>
+          ))
+        }
+      </div>
       
       <div className="prose prose-lg max-w-none prose-headings:text-foreground prose-headings:font-bold prose-a:text-primary prose-img:rounded-lg prose-img:my-8 prose-p:leading-relaxed prose-p:mb-4 prose-li:my-1">
         <PortableText value={post.content} components={components} />
       </div>
       
-      {post.author && (
+      {/* Display authors section */}
+      {post.authors && post.authors.length > 0 ? (
+        <div className="mt-16 border-t pt-8">
+          <h2 className="text-2xl font-bold mb-4">{post.authors.length > 1 ? 'About the Authors' : 'About the Author'}</h2>
+          <div className="space-y-8">
+            {post.authors.map((author, index) => (
+              <div key={index} className="flex items-start">
+                {author.image && (
+                  <div className="flex-shrink-0 mr-4">
+                    <div className="relative h-20 w-20 rounded-full overflow-hidden">
+                      <Image
+                        src={urlFor(author.image).url()}
+                        alt={author.name}
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
+                <div>
+                  <h3 className="text-xl font-semibold">{author.name}</h3>
+                  {author.bio && (
+                    <div className="mt-2 text-gray-700">
+                      <PortableText value={author.bio} />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : post.author && (
         <div className="mt-16 border-t pt-8">
           <h2 className="text-2xl font-bold mb-4">About the Author</h2>
           <div className="flex items-start">
             {post.author.image && (
-              <div className="relative h-16 w-16 rounded-full overflow-hidden mr-4">
-                <Image
-                  src={urlFor(post.author.image).url()}
-                  alt={post.author.name}
-                  fill
-                  className="object-cover"
-                />
+              <div className="flex-shrink-0 mr-4">
+                <div className="relative h-20 w-20 rounded-full overflow-hidden">
+                  <Image
+                    src={urlFor(post.author.image).url()}
+                    alt={post.author.name}
+                    fill
+                    sizes="80px"
+                    className="object-cover"
+                  />
+                </div>
               </div>
             )}
             <div>
@@ -254,6 +357,50 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                 </div>
               )}
             </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Related Posts Section */}
+      {post.relatedPosts && post.relatedPosts.length > 0 && (
+        <div className="mt-16 border-t pt-8">
+          <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {post.relatedPosts.map((relatedPost) => (
+              <Link href={`/blog/${relatedPost.slug.current}`} key={relatedPost._id} className="group">
+                <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/50 bg-card">
+                  {relatedPost.mainImage && (
+                    <div className="relative h-40 w-full">
+                      <Image
+                        src={urlFor(relatedPost.mainImage).url()}
+                        alt={relatedPost.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
+                      {relatedPost.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-2">
+                      {new Date(relatedPost.publishedAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                      {relatedPost.authors && relatedPost.authors.length > 0
+                        ? ` • By ${relatedPost.authors.join(', ')}`
+                        : relatedPost.author && ` • By ${relatedPost.author}`
+                      }
+                    </p>
+                    {relatedPost.excerpt && (
+                      <p className="text-gray-700 text-sm line-clamp-2">{relatedPost.excerpt}</p>
+                    )}
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       )}

@@ -46,10 +46,34 @@ export default {
       of: [{type: 'reference', to: {type: 'category'}}],
     },
     {
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      of: [{type: 'reference', to: {type: 'tag'}}],
+      description: 'Add relevant tags to help categorize your content',
+    },
+    {
+      name: 'featured',
+      title: 'Featured Post',
+      type: 'boolean',
+      description: 'Mark this post to appear in featured sections',
+      initialValue: false,
+    },
+    {
+      name: 'authors',
+      title: 'Authors',
+      type: 'array',
+      of: [{type: 'reference', to: {type: 'author'}}],
+      description: 'Select one or more authors for this post',
+      validation: Rule => Rule.required().min(1).error('At least one author is required')
+    },
+    {
       name: 'author',
-      title: 'Author',
+      title: 'Primary Author (Legacy)',
       type: 'reference',
       to: {type: 'author'},
+      description: 'Legacy field for backward compatibility. Please use the Authors field above.',
+      hidden: true
     },
     {
       name: 'content',
@@ -88,6 +112,60 @@ export default {
           options: {
             withFilename: true,
           }
+        },
+        {
+          type: 'callout',
+          title: 'Callout Block'
+        }
+      ]
+    },
+    {
+      name: 'relatedPosts',
+      title: 'Related Posts',
+      type: 'array',
+      of: [{type: 'reference', to: {type: 'post'}}],
+      description: 'Select posts that are related to this one',
+      validation: Rule => Rule.unique().max(3)
+    },
+    {
+      name: 'seo',
+      title: 'SEO',
+      type: 'object',
+      description: 'Search engine optimization settings',
+      fields: [
+        {
+          name: 'metaTitle',
+          title: 'Meta Title',
+          type: 'string',
+          description: 'Override the default title (70 characters max)',
+          validation: Rule => Rule.max(70)
+        },
+        {
+          name: 'metaDescription',
+          title: 'Meta Description',
+          type: 'text',
+          rows: 3,
+          description: 'Description for search engines (160 characters max)',
+          validation: Rule => Rule.max(160)
+        },
+        {
+          name: 'keywords',
+          title: 'Keywords',
+          type: 'array',
+          of: [{type: 'string'}],
+          description: 'Add keywords that describe your post',
+          options: {
+            layout: 'tags'
+          }
+        },
+        {
+          name: 'socialImage',
+          title: 'Social Media Image',
+          type: 'image',
+          description: 'Image used when sharing on social media (1200x630px recommended)',
+          options: {
+            hotspot: true
+          }
         }
       ]
     }
@@ -96,13 +174,19 @@ export default {
   preview: {
     select: {
       title: 'title',
+      authors: 'authors',
       author: 'author.name',
       media: 'mainImage',
     },
     prepare(selection) {
-      const {author} = selection
+      const {authors, author} = selection
+      // Use authors array if available, otherwise fall back to legacy author field
+      const authorsText = authors && authors.length > 0 
+        ? `by ${authors.map(author => author.name).join(', ')}` 
+        : author && `by ${author}`
+      
       return Object.assign({}, selection, {
-        subtitle: author && `by ${author}`,
+        subtitle: authorsText,
       })
     },
   },
