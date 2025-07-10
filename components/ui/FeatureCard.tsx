@@ -8,7 +8,7 @@ interface FeatureCardProps {
   title: string
   subtitle: string
   items: string[]
-  buttonLabel: string
+  buttonLabel?: string
   onButtonClick?: () => void
   className?: string
 }
@@ -38,11 +38,13 @@ export default function FeatureCard({
           ))}
         </div>
 
-        <div className="pt-4">
-          <Button variant="outline" className="w-full bg-transparent" onClick={onButtonClick}>
-            {buttonLabel}
-          </Button>
-        </div>
+        {buttonLabel && (
+          <div className="pt-4">
+            <Button variant="outline" className="w-full bg-transparent" onClick={onButtonClick}>
+              {buttonLabel}
+            </Button>
+          </div>
+        )}
       </CardContent>
     </Card>
   )

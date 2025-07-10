@@ -3,6 +3,7 @@ import Section from "@/components/ui/Section"
 import FeatureCard from "@/components/ui/FeatureCard"
 import ValueMetricsSection from "@/components/shared/ValueMetricsSection"
 import DeploymentIncludesSection from "@/components/shared/DeploymentIncludesSection"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Monitor, Workflow, Brain, CheckCircle, AlertTriangle, Eye, TrendingDown } from "lucide-react"
 import { generateMetadata as generateSEOMetadata, seoConfigs, generateSoftwareApplicationSchema } from "@/lib/seo"
@@ -141,8 +142,8 @@ export default function BatchTrakPage() {
             guesswork, reduces waste, and drives continuous improvement through structured, role-based workflows.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button variant="outline" size="lg">
-              Schedule Discovery Call
+            <Button variant="outline" size="lg" asChild>
+              <Link href="/contact">Schedule Discovery Call</Link>
             </Button>
           </div>
         </div>
@@ -302,7 +303,6 @@ export default function BatchTrakPage() {
                 title={feature.title}
                 subtitle={feature.subtitle}
                 items={feature.items}
-                buttonLabel={feature.buttonLabel}
                 className="h-full"
               />
             ))}
@@ -349,6 +349,19 @@ export default function BatchTrakPage() {
               <p className="text-sm text-gray-600">Batch Accountability</p>
             </div>
           </div>
+        </div>
+      </Section>
+
+      {/* Call to Action Section */}
+      <Section background="primary" padding="xl">
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <h2 className="text-4xl font-bold mb-4">See BatchTrak in Action</h2>
+          <p className="text-xl mb-8">
+            Experience how BatchTrak™ can transform your batch operations with a personalized demonstration tailored to your use case.
+          </p>
+          <Button size="lg" variant="secondary" asChild>
+            <Link href="/contact">Schedule a Demo</Link>
+          </Button>
         </div>
       </Section>
     </PageLayout>
