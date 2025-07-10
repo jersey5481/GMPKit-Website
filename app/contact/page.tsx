@@ -71,11 +71,13 @@ export default function ContactPage() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="demo">BatchTrak™ Demo</SelectItem>
-                    <SelectItem value="standard">Standard Package</SelectItem>
-                    <SelectItem value="advanced">Advanced Package</SelectItem>
-                    <SelectItem value="enterprise">Enterprise Package</SelectItem>
-                    <SelectItem value="implementation">Implementation Services</SelectItem>
-                    <SelectItem value="training">Training Programs</SelectItem>
+                    <SelectItem value="operational-transformation">BatchTrak™ Operational Transformation</SelectItem>
+                    <SelectItem value="lean-coaching">LEAN Leader Coaching Program</SelectItem>
+                    <SelectItem value="onsite-implementation">On-Site Implementation</SelectItem>
+                    <SelectItem value="advanced-integrations">Advanced Integrations</SelectItem>
+                    <SelectItem value="multi-site">Multi-Site Coordination</SelectItem>
+                    <SelectItem value="success-manager">Dedicated Success Manager</SelectItem>
+                    <SelectItem value="ai-intelligence">AI Intelligence Layer</SelectItem>
                     <SelectItem value="general">General Information</SelectItem>
                   </SelectContent>
                 </Select>
