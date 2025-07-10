@@ -15,6 +15,7 @@ const navigationLinks = [
   { href: "/implementation", label: "Implementation" },
   { href: "/training", label: "Training" },
   { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
 ]
 
 export default function Header({ currentPage }: HeaderProps) {
