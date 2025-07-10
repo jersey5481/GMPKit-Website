@@ -13,17 +13,6 @@ export interface ContactOption {
 
 export const contactOptions: ContactOption[] = [
   {
-    id: "chat",
-    icon: MessageCircle,
-    title: "Live Chat",
-    description: "Get instant answers from our support team",
-    buttonText: "Start Chat",
-    onClick: () => {
-      // Add your chat widget logic here
-      console.log("Starting chat...")
-    },
-  },
-  {
     id: "email",
     icon: Mail,
     title: "Email Support",

@@ -22,8 +22,6 @@ export default function ContactCard({
   onClick,
   variant = "outline",
 }: ContactCardProps) {
-  const ButtonComponent = href ? "a" : "button"
-
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm border">
       <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 mx-auto mb-4">
@@ -31,9 +29,21 @@ export default function ContactCard({
       </div>
       <h3 className="font-semibold mb-2">{title}</h3>
       <p className="text-sm text-gray-600 mb-4">{description}</p>
-      <Button variant={variant} size="sm" className="w-full" asChild={!!href} onClick={onClick}>
-        <ButtonComponent {...(href && { href })}>{buttonText}</ButtonComponent>
-      </Button>
+      
+      {href ? (
+        <Button variant={variant} size="sm" className="w-full" asChild>
+          <a href={href}>{buttonText}</a>
+        </Button>
+      ) : (
+        <Button 
+          variant={variant} 
+          size="sm" 
+          className="w-full" 
+          onClick={onClick}
+        >
+          {buttonText}
+        </Button>
+      )}
     </div>
   )
 }

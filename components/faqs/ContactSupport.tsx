@@ -22,7 +22,7 @@ export default function ContactSupport({
       <h2 className="text-3xl font-bold mb-4">{title}</h2>
       <p className="text-xl text-gray-600 mb-8">{description}</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 gap-6 mb-8 max-w-md mx-auto">
         {contactOptions.map((option) => (
           <ContactCard
             key={option.id}
@@ -36,14 +36,7 @@ export default function ContactSupport({
         ))}
       </div>
 
-      {showCTAButtons && (
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg">Schedule a Discovery Call</Button>
-          <Button variant="outline" size="lg">
-            Request a Demo
-          </Button>
-        </div>
-      )}
+
     </div>
   )
 }
