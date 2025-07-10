@@ -284,11 +284,7 @@ export default function TermsPage() {
                   United States
                   <br />
                   <br />
-                  <strong>Phone:</strong>{" "}
-                  <a href="tel:+18173818767" className="text-primary hover:underline">
-                    (817) 381-8767
-                  </a>
-                  <br />
+
                   <strong>Email:</strong>{" "}
                   <a href="mailto:support@gmpkit.com" className="text-primary hover:underline">
                     support@gmpkit.com

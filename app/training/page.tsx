@@ -203,7 +203,6 @@ export default function TrainingPage() {
         title="Ready to Empower Your Team with BatchTrak™?"
         description="Our training programs are designed to accelerate adoption, build confidence, and create lasting operational improvements. Let's discuss which programs are right for your team."
         primaryButton={{ text: "Schedule Training Consultation", href: "/contact" }}
-        secondaryButton={{ text: "Download Training Overview" }}
       />
 
       {/* Add structured data */}
