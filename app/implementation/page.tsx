@@ -4,8 +4,8 @@ import { CheckCircle, Users, Target, Zap, Clock, Shield, Rocket, HeadphonesIcon 
 import { generateMetadata as generateSEOMetadata, generateServiceSchema } from "@/lib/seo"
 import type { Metadata } from "next"
 import CTASection from "@/components/shared/CTASection"
-import TimelineSection from "@/components/shared/TimelineSection"
-import { IMPLEMENTATION_TIMELINE } from "@/lib/shared-data"
+import Image from "next/image"
+
 
 export const metadata: Metadata = generateSEOMetadata({
   title: "BatchTrak™ Implementation Services | Expert Deployment Support",
@@ -56,7 +56,7 @@ const whyImplementationMatters = [
   {
     title: "Implementation Expertise is Our Core Differentiator",
     description:
-      "We don't just provide software—we ensure transformation. Our operations veterans have guided dozens of sites through successful LEAN implementations.",
+      "We don't just provide software—we ensure transformation. Our operations veterans have guided manufacturing sites through successful LEAN implementations.",
   },
   {
     title: "Coaching-Driven Transformation",
@@ -109,7 +109,24 @@ export default function ImplementationPage() {
       {/* Hero Section */}
       <Section background="gray" padding="xl" className="text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">BatchTrak™ Implementation: From Setup to Success</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <div className="flex flex-col space-y-[-0.6em]">
+              <div className="flex items-center justify-center gap-3">
+                <div className="flex items-center">
+                  <Image
+                    src="/images/batchtrak-logo-new.png"
+                    width={280}
+                    height={84}
+                    alt="BatchTrak™"
+                    className="h-[4.46em] w-auto"
+                    priority
+                  />
+                </div>
+                <span>Implementation</span>
+              </div>
+              <span className="text-primary">From Setup to Success</span>
+            </div>
+          </h1>
           <p className="text-gray-600 text-lg">
             We don't just install software—we ensure your success. Our implementation services combine BatchTrak™
             configuration with strategic guidance from operations veterans who've been in your shoes.
@@ -122,13 +139,13 @@ export default function ImplementationPage() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-4">Why Implementation Expertise Matters</h2>
           <p className="text-xl text-gray-600 mb-8">
-            Technology is only as good as its implementation. We've learned what works (and what doesn't) from dozens of
+            Technology is only as good as its implementation. We've learned what works (and what doesn't) from real-world
             deployments across the industry.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {whyImplementationMatters.map((item, index) => (
-              <div key={index} className="bg-gray-50 p-6 rounded-lg text-left">
+              <div key={index} className="bg-gradient-to-br from-[#e6f7df] to-[#f2faea] p-6 rounded-lg text-left shadow-lg border border-[#e0f0d8]">
                 <h3 className="text-xl font-bold mb-3">{item.title}</h3>
                 <p className="text-gray-600">{item.description}</p>
               </div>
@@ -167,16 +184,10 @@ export default function ImplementationPage() {
         </div>
       </Section>
 
-      {/* Implementation Timeline */}
-      <TimelineSection
-        title="30-Day Implementation Timeline"
-        description="Our proven process gets you from kickoff to full deployment in just one month."
-        steps={IMPLEMENTATION_TIMELINE}
-        background="white"
-      />
+
 
       {/* Simplified Implementation Promise */}
-      <Section background="gray" padding="xl">
+      <Section background="white" padding="xl">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-4">30-Day Implementation: Your Foundation for Success</h2>
 
@@ -209,7 +220,7 @@ export default function ImplementationPage() {
       </Section>
 
       {/* Success Metrics */}
-      <Section background="white" padding="lg">
+      <Section background="gray" padding="lg">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-4">Implementation Success Metrics</h2>
           <p className="text-gray-600 mb-8">Our implementation approach delivers measurable results from day one.</p>

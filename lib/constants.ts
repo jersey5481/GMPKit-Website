@@ -236,7 +236,7 @@ export const IMPLEMENTATION_TIMELINE = [
     activities: ["User-training sessions", "Go-live support", "Issue resolution", "Performance monitoring"],
   },
   {
-    phase: "Optimisation",
+    phase: "Optimization",
     duration: "Ongoing",
     activities: ["Performance analysis", "Continuous improvement", "Additional training", "Feature enhancements"],
   },

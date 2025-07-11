@@ -11,50 +11,18 @@ import YouTubeEmbed from '@/components/blog/YouTubeEmbed';
 import VimeoEmbed from '@/components/blog/VimeoEmbed';
 import VideoPlayer from '@/components/blog/VideoPlayer';
 import Callout from '@/app/components/Callout';
+import { notFound } from 'next/navigation';
 
 export const revalidate = 60; // Revalidate this page every 60 seconds
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  // Ensure params is properly awaited in Next.js 15
-  const resolvedParams = await Promise.resolve(params);
-  const post = await getPost(resolvedParams.slug);
-  
-  // Use SEO fields if available, otherwise fall back to defaults
-  const title = post?.seo?.metaTitle || post?.title || 'Blog Post';
-  const description = post?.seo?.metaDescription || post?.excerpt || 'Read this insightful article from GMPKit on batch manufacturing operations.';
-  
-  const metadata: Metadata = {
-    title: `${title} | GMPKit`,
-    description: description,
-  };
-  
-  // Add keywords if available
-  if (post?.seo?.keywords && post.seo.keywords.length > 0) {
-    metadata.keywords = post.seo.keywords;
-  }
-  
-  // Add OpenGraph metadata
-  metadata.openGraph = {
-    title: title,
-    description: description,
-    type: 'article',
-    url: `https://gmpkit.com/blog/${post?.slug?.current || params.slug}`,
-    images: post?.seo?.socialImage ? 
-      [{ url: urlFor(post.seo.socialImage).url(), width: 1200, height: 630, alt: title }] : 
-      (post?.mainImage ? 
-        [{ url: urlFor(post.mainImage).url(), width: 1200, height: 630, alt: title }] : 
-        [])
-  };
-  
-  return metadata;
-}
-
+// Define interfaces
 interface SanityImage {
   _type: string;
   asset: {
     _ref: string;
     _type: string;
   };
+  _ref?: string;
   alt?: string;
 }
 
@@ -76,8 +44,9 @@ interface Post {
   categories?: string[];
   tags?: string[];
   featured?: boolean;
-  author?: Author; // Legacy field
-  authors?: Author[]; // New field for multiple authors
+  includeInFeed?: boolean;
+  author?: Author;
+  authors?: Author[];
   relatedPosts?: Post[];
   seo?: {
     metaTitle?: string;
@@ -88,39 +57,55 @@ interface Post {
 }
 
 // Define the components for the PortableText renderer
-const components: Partial<import('@portabletext/react').PortableTextReactComponents> = {
+const components = {
   types: {
-    image: ({ value }: any) => (
-      <div className="relative w-full h-96 my-8">
-        <Image
-          src={urlFor(value).url()}
-          alt={value.alt || 'Blog image'}
-          fill
-          className="object-contain"
-        />
-      </div>
-    ),
-    callout: ({ value }: any) => (
-      <Callout value={value} />
-    ),
-    youtube: ({ value }: any) => (
-      <YouTubeEmbed 
-        videoId={value.videoId} 
-        title={value.title} 
-        description={value.description} 
-      />
-    ),
-    vimeo: ({ value }: any) => (
-      <VimeoEmbed 
-        videoId={value.videoId} 
-        title={value.title} 
-        description={value.description} 
-      />
-    ),
+    image: ({ value }: any) => {
+      if (!value?.asset?._ref) {
+        return null;
+      }
+      return (
+        <div className="my-8">
+          <Image
+            src={urlFor(value).url()}
+            alt={value.alt || 'Blog post image'}
+            width={800}
+            height={500}
+            className="rounded-lg mx-auto"
+          />
+          {value.caption && <p className="text-center text-sm text-gray-500 mt-2">{value.caption}</p>}
+        </div>
+      );
+    },
+    callout: ({ value }: any) => {
+      return <Callout type={value.type}>{value.text}</Callout>;
+    },
+    youtube: ({ value }: any) => {
+      if (!value?.url) return null;
+      return (
+        <div className="my-8">
+          <YouTubeEmbed url={value.url} title={value.title || 'YouTube video'} />
+          {value.caption && <p className="text-center text-sm text-gray-500 mt-2">{value.caption}</p>}
+        </div>
+      );
+    },
+    vimeo: ({ value }: any) => {
+      if (!value?.url) return null;
+      return (
+        <div className="my-8">
+          <VimeoEmbed url={value.url} title={value.title || 'Vimeo video'} />
+          {value.caption && <p className="text-center text-sm text-gray-500 mt-2">{value.caption}</p>}
+        </div>
+      );
+    },
     video: ({ value }: any) => {
-      // Handle generic video files
-      const videoUrl = value.asset ? urlFor(value.asset).url() : value.url;
-      const posterUrl = value.poster ? urlFor(value.poster).url() : undefined;
+      if (!value?.asset) return null;
+      
+      const videoUrl = urlFor(value.asset).url();
+      let posterUrl = '';
+      
+      if (value.poster && value.poster.asset) {
+        posterUrl = urlFor(value.poster).url();
+      }
       
       return (
         <VideoPlayer 
@@ -138,22 +123,22 @@ const components: Partial<import('@portabletext/react').PortableTextReactCompone
     ),
   },
   block: {
-    h1: ({ children }) => <h1 className="text-4xl font-bold mt-8 mb-4">{children}</h1>,
-    h2: ({ children }) => <h2 className="text-3xl font-bold mt-8 mb-4">{children}</h2>,
-    h3: ({ children }) => <h3 className="text-2xl font-bold mt-6 mb-3">{children}</h3>,
-    h4: ({ children }) => <h4 className="text-xl font-bold mt-4 mb-2">{children}</h4>,
-    normal: ({ children }) => <p className="mb-4 leading-relaxed">{children}</p>,
-    blockquote: ({ children }) => (
+    h1: ({ children }: any) => <h1 className="text-4xl font-bold mt-8 mb-4">{children}</h1>,
+    h2: ({ children }: any) => <h2 className="text-3xl font-bold mt-8 mb-4">{children}</h2>,
+    h3: ({ children }: any) => <h3 className="text-2xl font-bold mt-6 mb-3">{children}</h3>,
+    h4: ({ children }: any) => <h4 className="text-xl font-bold mt-4 mb-2">{children}</h4>,
+    normal: ({ children }: any) => <p className="mb-4 leading-relaxed">{children}</p>,
+    blockquote: ({ children }: any) => (
       <blockquote className="border-l-4 border-primary pl-4 italic my-6">{children}</blockquote>
     ),
   },
   list: {
-    bullet: ({ children }) => <ul className="list-disc pl-6 mb-4 space-y-2">{children}</ul>,
-    number: ({ children }) => <ol className="list-decimal pl-6 mb-4 space-y-2">{children}</ol>,
+    bullet: ({ children }: any) => <ul className="list-disc pl-6 mb-4 space-y-2">{children}</ul>,
+    number: ({ children }: any) => <ol className="list-decimal pl-6 mb-4 space-y-2">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => <li>{children}</li>,
-    number: ({ children }) => <li>{children}</li>,
+    bullet: ({ children }: any) => <li>{children}</li>,
+    number: ({ children }: any) => <li>{children}</li>,
   },
   marks: {
     link: ({ children, value }: any) => {
@@ -164,12 +149,13 @@ const components: Partial<import('@portabletext/react').PortableTextReactCompone
         </Link>
       );
     },
-    strong: ({ children }) => <strong className="font-bold">{children}</strong>,
-    em: ({ children }) => <em className="italic">{children}</em>,
-    code: ({ children }) => <code className="bg-gray-100 dark:bg-gray-900 px-1 py-0.5 rounded">{children}</code>,
+    strong: ({ children }: any) => <strong className="font-bold">{children}</strong>,
+    em: ({ children }: any) => <em className="italic">{children}</em>,
+    code: ({ children }: any) => <code className="bg-gray-100 dark:bg-gray-900 px-1 py-0.5 rounded">{children}</code>,
   },
 };
 
+// Function to get post data
 async function getPost(slug: string): Promise<Post | null> {
   const client = getClient();
   try {
@@ -183,6 +169,7 @@ async function getPost(slug: string): Promise<Post | null> {
         mainImage,
         content,
         featured,
+        includeInFeed,
         "categories": categories[]->title,
         "tags": tags[]->title,
         "author": author->{name, image, bio, slug},
@@ -208,10 +195,11 @@ async function getPost(slug: string): Promise<Post | null> {
   }
 }
 
+// Generate static params for all posts
 export async function generateStaticParams() {
-  const client = getClient();
   try {
-    const posts = await client.fetch(`*[_type == "post"]{slug}`);
+    const client = getClient();
+    const posts = await client.fetch(`*[_type == "post"] { slug }`);
     
     return posts.map((post: { slug: { current: string } }) => ({
       slug: post.slug.current,
@@ -222,17 +210,53 @@ export async function generateStaticParams() {
   }
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  // Ensure params is properly awaited in Next.js 15
-  const resolvedParams = await Promise.resolve(params);
-  const post: Post | null = await getPost(resolvedParams.slug);
+// Metadata generation function
+export async function generateMetadata(props: { params: { slug: string } }): Promise<Metadata> {
+  // Extract the slug from params
+  const slug = props.params.slug;
+  
+  // Get post data
+  const post = await getPost(slug);
   
   if (!post) {
-    return (
-      <PageLayout currentPage="blog">
-        <div className="container mx-auto px-4 py-12">Post not found</div>
-      </PageLayout>
-    );
+    return {
+      title: 'Post Not Found | GMPKit',
+      description: 'The requested blog post could not be found.',
+    };
+  }
+  
+  // Use SEO fields if available, otherwise fall back to defaults
+  const title = post.seo?.metaTitle || post.title || 'Blog Post';
+  const description = post.seo?.metaDescription || post.excerpt || 'Read this insightful article from GMPKit on batch manufacturing operations.';
+  
+  return {
+    title: `${title} | GMPKit`,
+    description: description,
+    keywords: post.seo?.keywords || undefined,
+    openGraph: {
+      title: title,
+      description: description,
+      type: 'article',
+      url: `https://gmpkit.com/blog/${post.slug?.current || slug}`,
+      images: post.seo?.socialImage ? 
+        [{ url: urlFor(post.seo.socialImage).url(), width: 1200, height: 630, alt: title }] : 
+        (post.mainImage ? 
+          [{ url: urlFor(post.mainImage).url(), width: 1200, height: 630, alt: title }] : 
+          [])
+    }
+  };
+}
+
+// Main blog post component
+export default async function BlogPost(props: { params: { slug: string } }) {
+  // Extract the slug from params
+  const slug = props.params.slug;
+  
+  // Get post data
+  const post = await getPost(slug);
+  
+  if (!post) {
+    notFound();
   }
 
   return (
@@ -243,168 +267,131 @@ export default async function BlogPost({ params }: { params: { slug: string } })
             <ArrowLeft className="h-4 w-4" /> Back to all posts
           </Link>
         </Button>
-      
-      <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-      
-      <div className="flex items-center mb-8">
-        <div className="text-gray-600">
-          {new Date(post.publishedAt).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-          {post.authors && post.authors.length > 0
-            ? ` • By ${post.authors.map(author => author.name).join(', ')}`
-            : post.author && ` • By ${post.author.name}`
-          }
-        </div>
-      </div>
-      
-      {post.mainImage && (
-        <div className="relative w-full h-[400px] md:h-[500px] mb-8 rounded-lg overflow-hidden">
-          <Image
-            src={urlFor(post.mainImage).url()}
-            alt={post.title}
-            fill
-            priority
-            className="object-cover"
-          />
-        </div>
-      )}
-      
-      {/* Categories and Tags */}
-      <div className="mb-8 flex flex-wrap gap-2">
-        {post.categories && post.categories.length > 0 && 
-          post.categories.map((category: string) => (
-            <span
-              key={`category-${category}`}
-              className="bg-primary/10 text-primary-foreground px-3 py-1 rounded-full"
-            >
-              {category}
-            </span>
-          ))
-        }
-        {post.tags && post.tags.length > 0 && 
-          post.tags.map((tag: string) => (
-            <span
-              key={`tag-${tag}`}
-              className="bg-secondary/20 text-secondary-foreground px-3 py-1 rounded-full"
-            >
-              #{tag}
-            </span>
-          ))
-        }
-      </div>
-      
-      <div className="prose prose-lg max-w-none prose-headings:text-foreground prose-headings:font-bold prose-a:text-primary prose-img:rounded-lg prose-img:my-8 prose-p:leading-relaxed prose-p:mb-4 prose-li:my-1">
-        <PortableText value={post.content} components={components} />
-      </div>
-      
-      {/* Display authors section */}
-      {post.authors && post.authors.length > 0 ? (
-        <div className="mt-16 border-t pt-8">
-          <h2 className="text-2xl font-bold mb-4">{post.authors.length > 1 ? 'About the Authors' : 'About the Author'}</h2>
-          <div className="space-y-8">
-            {post.authors.map((author, index) => (
-              <div key={index} className="flex items-start">
-                {author.image && (
-                  <div className="flex-shrink-0 mr-4">
-                    <div className="relative h-20 w-20 rounded-full overflow-hidden">
-                      <Image
-                        src={urlFor(author.image).url()}
-                        alt={author.name}
-                        fill
-                        sizes="80px"
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                )}
-                <div>
-                  <h3 className="text-xl font-semibold">{author.name}</h3>
-                  {author.bio && (
-                    <div className="mt-2 text-gray-700">
-                      <PortableText value={author.bio} />
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
+
+        {post.mainImage && (
+          <div className="mb-8">
+            <Image
+              src={urlFor(post.mainImage).width(1200).height(630).url()}
+              alt={post.title}
+              width={1200}
+              height={630}
+              className="rounded-lg w-full h-auto"
+              priority
+            />
           </div>
-        </div>
-      ) : post.author && (
-        <div className="mt-16 border-t pt-8">
-          <h2 className="text-2xl font-bold mb-4">About the Author</h2>
-          <div className="flex items-start">
-            {post.author.image && (
-              <div className="flex-shrink-0 mr-4">
-                <div className="relative h-20 w-20 rounded-full overflow-hidden">
+        )}
+
+        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+        
+        <div className="flex flex-wrap items-center gap-4 mb-8 text-sm text-muted-foreground">
+          {post.publishedAt && (
+            <time dateTime={new Date(post.publishedAt).toISOString()}>
+              {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </time>
+          )}
+          
+          {post.author && (
+            <div className="flex items-center">
+              {post.author.image && (
+                <div className="mr-2">
                   <Image
-                    src={urlFor(post.author.image).url()}
+                    src={urlFor(post.author.image).width(40).height(40).url()}
                     alt={post.author.name}
-                    fill
-                    sizes="80px"
-                    className="object-cover"
+                    width={24}
+                    height={24}
+                    className="rounded-full"
                   />
                 </div>
-              </div>
-            )}
-            <div>
-              <h3 className="text-xl font-semibold">{post.author.name}</h3>
-              {post.author.bio && (
-                <div className="mt-2 text-gray-700">
-                  <PortableText value={post.author.bio} />
-                </div>
               )}
+              <span>By {post.author.name}</span>
+            </div>
+          )}
+          
+          {post.authors && post.authors.length > 0 && !post.author && (
+            <div className="flex items-center">
+              <span>By {post.authors.map(author => author.name).join(', ')}</span>
+            </div>
+          )}
+          
+          {post.categories && post.categories.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {post.categories.map((category: string) => (
+                <Link 
+                  href={`/blog/category/${encodeURIComponent(category)}`} 
+                  key={`category-${category}`}
+                  className="bg-primary/10 text-primary-foreground text-xs px-2 py-1 rounded-full hover:bg-primary/20"
+                >
+                  {category}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {post.excerpt && (
+          <div className="mb-8 text-lg font-medium text-muted-foreground italic border-l-4 border-primary pl-4 py-2">
+            {post.excerpt}
+          </div>
+        )}
+
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          {post.content && <PortableText value={post.content} components={components} />}
+        </div>
+
+        {post.tags && post.tags.length > 0 && (
+          <div className="mt-12 pt-6 border-t">
+            <h3 className="text-lg font-medium mb-4">Tags</h3>
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag: string) => (
+                <span key={`tag-${tag}`} className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full">
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
-        </div>
-      )}
-      
-      {/* Related Posts Section */}
-      {post.relatedPosts && post.relatedPosts.length > 0 && (
-        <div className="mt-16 border-t pt-8">
-          <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {post.relatedPosts.map((relatedPost) => (
-              <Link href={`/blog/${relatedPost.slug.current}`} key={relatedPost._id} className="group">
-                <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/50 bg-card">
-                  {relatedPost.mainImage && (
-                    <div className="relative h-40 w-full">
-                      <Image
-                        src={urlFor(relatedPost.mainImage).url()}
-                        alt={relatedPost.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  )}
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
-                      {relatedPost.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-2">
-                      {new Date(relatedPost.publishedAt).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                      {relatedPost.authors && relatedPost.authors.length > 0
-                        ? ` • By ${relatedPost.authors.join(', ')}`
-                        : relatedPost.author && ` • By ${relatedPost.author}`
-                      }
-                    </p>
-                    {relatedPost.excerpt && (
-                      <p className="text-gray-700 text-sm line-clamp-2">{relatedPost.excerpt}</p>
+        )}
+
+        {post.relatedPosts && post.relatedPosts.length > 0 && (
+          <div className="mt-12 pt-6 border-t">
+            <h3 className="text-2xl font-bold mb-6">Related Posts</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {post.relatedPosts.map((relatedPost) => (
+                <Link 
+                  href={`/blog/${relatedPost.slug.current}`} 
+                  key={relatedPost._id}
+                  className="group block"
+                >
+                  <div className="border rounded-lg overflow-hidden transition-all group-hover:shadow-md">
+                    {relatedPost.mainImage && (
+                      <div className="aspect-video overflow-hidden">
+                        <Image
+                          src={urlFor(relatedPost.mainImage).width(600).height(340).url()}
+                          alt={relatedPost.title}
+                          width={600}
+                          height={340}
+                          className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                        />
+                      </div>
                     )}
+                    <div className="p-4">
+                      <h4 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors">
+                        {relatedPost.title}
+                      </h4>
+                      {relatedPost.excerpt && (
+                        <p className="text-muted-foreground text-sm line-clamp-2">{relatedPost.excerpt}</p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
-    </article>
+        )}
+      </article>
     </PageLayout>
   );
 }

@@ -4,6 +4,7 @@ import { CheckCircle, Users, Award, BookOpen, Monitor, Zap } from "lucide-react"
 import { generateMetadata as generateSEOMetadata, seoConfigs, generateServiceSchema } from "@/lib/seo"
 import type { Metadata } from "next"
 import CTASection from "@/components/shared/CTASection"
+import Image from "next/image"
 
 export const metadata: Metadata = generateSEOMetadata(seoConfigs.training)
 
@@ -57,8 +58,23 @@ export default function TrainingPage() {
       {/* Hero Section */}
       <Section background="gray" padding="xl" className="text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            BatchTrak™ Training: Build Capabilities That Drive Results
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <div className="flex flex-col space-y-[-0.6em]">
+              <div className="flex items-center justify-center gap-3">
+                <div className="flex items-center">
+                  <Image
+                    src="/images/batchtrak-logo-new.png"
+                    width={280}
+                    height={84}
+                    alt="BatchTrak™"
+                    className="h-[4.46em] w-auto"
+                    priority
+                  />
+                </div>
+                <span>Training</span>
+              </div>
+              <span className="text-primary">Build Capabilities That Drive Results</span>
+            </div>
           </h1>
           <p className="text-gray-600 text-lg">
             Our training programs don't just teach software features—they develop the operational thinking and
