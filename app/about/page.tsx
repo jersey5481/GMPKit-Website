@@ -1,5 +1,5 @@
 import PageLayout from "@/components/layout/PageLayout"
-import Section from "@/components/ui/Section"
+import Section from "@/components/ui/section"
 import { Button } from "@/components/ui/button"
 import { generateMetadata as generateSEOMetadata, seoConfigs, generateServiceSchema } from "@/lib/seo"
 import type { Metadata } from "next"
