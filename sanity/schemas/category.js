@@ -24,5 +24,12 @@ export default {
       title: 'Description',
       type: 'text',
     },
+    {
+      name: 'includeInNavigation',
+      title: 'Include in Navigation Card',
+      type: 'boolean',
+      description: 'If true, this category will appear in navigation cards. If false, it will be excluded from navigation but still accessible directly.',
+      initialValue: true,
+    },
   ],
 }

@@ -60,6 +60,13 @@ export default {
       initialValue: false,
     },
     {
+      name: 'includeInFeed',
+      title: 'Include in Feed',
+      type: 'boolean',
+      description: 'If true, post appears in the main feed. If false, post is excluded from the feed but still accessible directly.',
+      initialValue: true,
+    },
+    {
       name: 'authors',
       title: 'Authors',
       type: 'array',
