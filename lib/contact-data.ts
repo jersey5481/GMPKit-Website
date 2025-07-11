@@ -13,11 +13,11 @@ export interface ContactOption {
 
 export const contactOptions: ContactOption[] = [
   {
-    id: "email",
-    icon: Mail,
-    title: "Email Support",
-    description: "Send us your detailed questions",
-    buttonText: "Send Email",
-    href: "mailto:support@gmpkit.com",
+    id: "contact",
+    icon: MessageCircle,
+    title: "Contact Us",
+    description: "Get in touch with our team",
+    buttonText: "Contact Us",
+    href: "/contact",
   },
 ]

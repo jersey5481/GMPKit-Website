@@ -228,7 +228,7 @@ export const IMPLEMENTATION_TIMELINE = [
   {
     phase: "Configuration & Setup",
     duration: "Week 3-4",
-    activities: ["Platform configuration", "Workflow setup", "Integration development", "Testing & validation"],
+    activities: ["Platform configuration", "Workflow setup", "Integration development", "Testing & Confirmation"],
   },
   {
     phase: "Training & Go-Live",

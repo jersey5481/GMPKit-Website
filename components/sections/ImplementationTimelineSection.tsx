@@ -3,7 +3,10 @@ import { IMPLEMENTATION_TIMELINE } from "@/lib/shared-data"
 import { Calendar, Users, Settings, Rocket } from "lucide-react"
 
 const timelineWithIcons = IMPLEMENTATION_TIMELINE.map((step, index) => ({
-  ...step,
+  phase: step.phase,
+  title: step.phase, // Add title property to match TimelineStep interface
+  activities: [...step.activities], // Convert readonly array to mutable array
+  duration: step.duration,
   icon: [Calendar, Settings, Users, Rocket][index],
 }))
 

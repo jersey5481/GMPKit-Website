@@ -35,17 +35,16 @@ export default function TimelineSection({
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {steps.map((step, index) => (
             <div key={index} className="relative">
-              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 shadow-md h-full flex flex-col">
                 <div className="text-center mb-4">
                   {step.icon && (
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 mx-auto mb-3">
                       <step.icon className="h-6 w-6 text-primary" />
                     </div>
                   )}
-                  <div className="text-sm font-semibold text-primary mb-1">{step.phase}</div>
-                  <h3 className="text-lg font-bold">{step.title}</h3>
+                  <h3 className="text-lg font-semibold text-primary">{step.phase}</h3>
                 </div>
-                <ul className="space-y-2">
+                <ul className="space-y-2 flex-grow">
                   {step.activities.map((activity, activityIndex) => (
                     <li key={activityIndex} className="text-sm text-gray-600 flex items-start">
                       <span className="text-primary mr-2">•</span>
