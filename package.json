@@ -9,7 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.9.1",
+    "@hookform/resolvers": "^3.10.0",
     "@portabletext/react": "^3.2.1",
     "@radix-ui/react-accordion": "latest",
     "@radix-ui/react-alert-dialog": "latest",
@@ -55,7 +55,8 @@
     "react": "^19",
     "react-day-picker": "latest",
     "react-dom": "^19",
-    "react-hook-form": "latest",
+    "react-google-recaptcha-v3": "^1.11.0",
+    "react-hook-form": "^7.60.0",
     "react-lite-youtube-embed": "^2.5.1",
     "react-resizable-panels": "latest",
     "recharts": "latest",
@@ -64,7 +65,7 @@
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "latest",
-    "zod": "^3.24.1"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
