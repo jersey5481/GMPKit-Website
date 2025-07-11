@@ -99,9 +99,9 @@ export const faqData: FAQ[] = [
   {
     id: "compliance-1",
     category: "Compliance",
-    question: "How do we know BatchTrak™ is safe to use in GMP Regulated Environments?",
+    question: "How do we know BatchTrak™ is usable in GMP Regulated Environments?",
     answer:
-      "BatchTrak™ operates within GMP environments as a procedural support tool—not as a validated GMP decision-making system. It has undergone a System Impact Assessment under ISPE/GAMP5, confirming that it supports compliance through structured workflows, full audit trails, and traceable user actions—without requiring formal validation.",
+      "BatchTrak™ operates within GMP environments as a continuous improvement tool—not as a validated GMP decision-making system. It has undergone a System Impact Assessment under ISPE/GAMP5 guidelines, confirming that it supports compliance through structured workflows, full audit trails, and traceable user actions—without requiring formal validation. If your organization requires a fully-qualified (validated) instance of BatchTrak™, please contact GMPKit for additional options.",
   },
   {
     id: "compliance-2",
@@ -115,7 +115,7 @@ export const faqData: FAQ[] = [
     category: "Compliance",
     question: "Will our QA team need to review the system?",
     answer:
-      "While full system validation is not required, your QA team may choose to review configured workflows or SOP alignment to ensure the tool fits within your quality framework. We support this review process.",
+      "While full system validation is typically not required, your QA team may choose to review configured workflows or SOP alignment to ensure the tool fits within your quality framework. We support this review process.",
   },
 
   // Security & Data Management
@@ -146,7 +146,7 @@ export const faqData: FAQ[] = [
     category: "Training & Adoption",
     question: "What training is included with BatchTrak™?",
     answer:
-      "All packages include role-based training tailored to your team's specific responsibilities. Standard includes foundation training, Advanced adds coaching programs, and Enterprise includes leadership development and train-the-trainer programs.",
+      "The BatchTrak™ Operational Transformation package includes role-based training for all users (production, QA, management) tailored to your team's specific responsibilities. The LEAN Leader Coaching Program upgrade option provides additional 90-day optimization with weekly coaching check-ins. Our training approach ensures your team can effectively use the platform from day one while developing continuous improvement capabilities.",
   },
   {
     id: "training-2",
@@ -160,7 +160,7 @@ export const faqData: FAQ[] = [
     category: "Training & Adoption",
     question: "Do you provide ongoing training and support?",
     answer:
-      "Yes. Advanced and Enterprise packages include ongoing coaching programs. We also provide continuous support through our help desk and regular check-ins to ensure you're maximizing BatchTrak™ value.",
+      "Yes. The BatchTrak™ Operational Transformation package includes foundation-level ongoing support and optimization guidance. For enhanced support, the Dedicated Success Manager upgrade option provides a partnership with quarterly executive reviews, while the LEAN Leader Coaching Program offers weekly coaching check-ins. All clients receive access to our help desk and knowledge base to ensure you're maximizing BatchTrak™ value.",
   },
 
   // Strategic Fit
@@ -177,6 +177,20 @@ export const faqData: FAQ[] = [
     question: "How do you see GMPKit evolving in the manufacturing ecosystem?",
     answer:
       "GMPKit fills the gap between manual processes and overly complex enterprise systems. We're building lightweight, intelligent tools that boost operational performance while maintaining the agility manufacturers need to compete.",
+  },
+  {
+    id: "strategic-3",
+    category: "Strategic Fit",
+    question: "What KPIs does BatchTrak™ move?",
+    answer:
+      "BatchTrak™ drives measurable improvements in key manufacturing metrics including batch success rate, deviation reduction, schedule adherence, and on-time disposition. Clients typically see reduction in deviations, improvement in on-time batch completion, and significantly enhanced visibility into production bottlenecks. These operational improvements translate directly to business outcomes like increased capacity utilization, reduced operational costs, and faster time-to-market.",
+  },
+  {
+    id: "strategic-4",
+    category: "Strategic Fit",
+    question: "Will the GMPKit approach require my site to adjust its strategy?",
+    answer:
+      "Typically not. Our toolset equips your operations team with a tactical playbook. You set the strategy, we provide the tools, training and software that empowers execution.",
   },
 ]
 
