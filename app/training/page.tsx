@@ -59,7 +59,7 @@ export default function TrainingPage() {
       <Section background="gray" padding="xl" className="text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <div className="flex flex-col space-y-[-0.6em]">
+            <div className="flex flex-col items-center space-y-[-0.6em]">
               <div className="flex items-center justify-center gap-3">
                 <div className="flex items-center">
                   <Image
@@ -73,15 +73,24 @@ export default function TrainingPage() {
                 </div>
                 <span>Training</span>
               </div>
-              <span className="text-primary">Build Capabilities That Drive Results</span>
+              <div className="w-full text-center">
+                <span className="text-primary">Build Capabilities That Drive Results</span>
+              </div>
             </div>
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-lg mb-8">
             Our training programs don't just teach software features—they develop the operational thinking and
             leadership skills your team needs to maximize BatchTrak™ value and drive continuous improvement. Guided by
             our proprietary checklist, training is strategically targeted to address the root causes and focus exactly
             where the problems are.
           </p>
+          
+          <div className="bg-gradient-to-br from-[#e6f7df] to-[#f2faea] p-8 rounded-lg shadow-xl max-w-4xl mx-auto mb-8">
+            <h3 className="text-2xl font-bold mb-6 text-center">Training Included with Every BatchTrak™ Package</h3>
+            <p className="text-lg text-gray-700 mb-4 text-center">
+              Every BatchTrak™ engagement includes role-based training, hands-on coaching, and ongoing support—ensuring your team is ready to succeed from day one.
+            </p>
+          </div>
         </div>
       </Section>
 

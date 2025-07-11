@@ -110,7 +110,7 @@ export default function ImplementationPage() {
       <Section background="gray" padding="xl" className="text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <div className="flex flex-col space-y-[-0.6em]">
+            <div className="flex flex-col items-center space-y-[-0.6em]">
               <div className="flex items-center justify-center gap-3">
                 <div className="flex items-center">
                   <Image
@@ -124,7 +124,9 @@ export default function ImplementationPage() {
                 </div>
                 <span>Implementation</span>
               </div>
-              <span className="text-primary">From Setup to Success</span>
+              <div className="w-full text-center">
+                <span className="text-primary">From Setup to Success</span>
+              </div>
             </div>
           </h1>
           <p className="text-gray-600 text-lg">

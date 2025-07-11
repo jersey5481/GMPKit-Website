@@ -39,14 +39,14 @@ export const faqData: FAQ[] = [
     category: "Platform & Capabilities",
     question: "Can BatchTrak™ support multi-site or global operations?",
     answer:
-      "Yes. BatchTrak™ supports multi-site and global operations with UTC-based timestamping, scalable deployment architecture, and redundant configuration options. The Enterprise package is specifically designed for multi-site coordination.",
+      "Yes. BatchTrak™ supports multi-site and global operations with UTC-based timestamping, scalable deployment architecture, and redundant configuration options.",
   },
   {
     id: "platform-6",
     category: "Platform & Capabilities",
-    question: "How does BatchTrak™ compare to enterprise systems like SAP?",
+    question: "How does BatchTrak™ compare to traditional enterprise systems?",
     answer:
-      "BatchTrak™ delivers enterprise-level capabilities with startup-level speed. While SAP implementations take 12-24 months, BatchTrak™ deploys in 30 days. You get real-time batch visibility without the complexity and cost of traditional enterprise systems.",
+      "BatchTrak™ delivers enterprise-level capabilities with startup-level speed. While traditional enterprise systems often take 12-24 months to implement, BatchTrak™ deploys in 30 days. You get real-time batch visibility without the complexity and cost of conventional enterprise solutions.",
   },
 
   // Packages & Pricing
@@ -55,7 +55,7 @@ export const faqData: FAQ[] = [
     category: "Packages & Pricing",
     question: "What's included in each BatchTrak™ package?",
     answer:
-      "Standard includes essential batch tracking and alerts. Advanced adds role-based workflows and coaching. Enterprise includes multi-site coordination and custom integrations. All packages include implementation, training, and ongoing support.",
+      "The BatchTrak™ Operational Transformation package includes a Value Stream Diagnostic Assessment, platform configuration tailored to your workflows, role-based training for all users, KPI tracking dashboards, 30-day implementation with remote go-live support, and foundation-level ongoing support. Additional upgrade options include LEAN Leader Coaching, On-Site Implementation, Advanced Integrations, Multi-Site Coordination, Dedicated Success Manager, and AI Intelligence Layer.",
   },
   {
     id: "pricing-2",
@@ -69,7 +69,7 @@ export const faqData: FAQ[] = [
     category: "Packages & Pricing",
     question: "Can we start with one package and upgrade later?",
     answer:
-      "Absolutely. Many customers start with Standard and upgrade to Advanced or Enterprise as they see value and want to expand capabilities. We make transitions seamless.",
+      "Absolutely. You can begin with the core BatchTrak™ Operational Transformation package and add upgrade options as your needs evolve. Many customers start with the foundation and add capabilities like LEAN Leader Coaching or Advanced Integrations as they see value and want to expand their implementation. We design the system to make these additions seamless.",
   },
 
   // Implementation & Support
@@ -78,7 +78,7 @@ export const faqData: FAQ[] = [
     category: "Implementation & Support",
     question: "What is the expected implementation timeline?",
     answer:
-      "Standard implementations complete in 30 days, Advanced in 45 days, and Enterprise in 60-90 days. Timeline depends on complexity and availability of client documentation like SOPs and workflow requirements. Early engagement from your team keeps projects on track.",
+      "The BatchTrak™ Operational Transformation package includes a 30-day implementation with remote go-live support. Timeline can vary slightly based on complexity and availability of client documentation like SOPs and workflow requirements. Early engagement from your team helps keep the project on track. On-site implementation is available as an upgrade option for more complex deployments.",
   },
   {
     id: "implementation-2",
@@ -98,21 +98,21 @@ export const faqData: FAQ[] = [
   // Compliance & Validation
   {
     id: "compliance-1",
-    category: "Compliance & Validation",
-    question: "Since BatchTrak™ is not a validated GMP system, how does it work in GMP environments?",
+    category: "Compliance",
+    question: "How do we know BatchTrak™ is safe to use in GMP Regulated Environments?",
     answer:
-      "BatchTrak™ has been commissioned as a procedural support system, not a decision-making GMP system. It operates within GMP environments by promoting structured execution, consistent workflows, complete audit trails, and traceable user actions while supporting compliance through industry best practices.",
+      "BatchTrak™ operates within GMP environments as a procedural support tool—not as a validated GMP decision-making system. It has undergone a System Impact Assessment under ISPE/GAMP5, confirming that it supports compliance through structured workflows, full audit trails, and traceable user actions—without requiring formal validation.",
   },
   {
     id: "compliance-2",
-    category: "Compliance & Validation",
+    category: "Compliance",
     question: "How do you handle data integrity, traceability, and version control?",
     answer:
       "We use structured task execution, immutable audit logs, and version-controlled templates. All timestamps are recorded in UTC to ensure global consistency. Role-based access controls ensure data integrity.",
   },
   {
     id: "compliance-3",
-    category: "Compliance & Validation",
+    category: "Compliance",
     question: "Will our QA team need to review the system?",
     answer:
       "While full system validation is not required, your QA team may choose to review configured workflows or SOP alignment to ensure the tool fits within your quality framework. We support this review process.",
@@ -184,7 +184,7 @@ export const faqCategories = [
   "Platform & Capabilities",
   "Packages & Pricing",
   "Implementation & Support",
-  "Compliance & Validation",
+  "Compliance",
   "Security & Data Management",
   "Training & Adoption",
   "Strategic Fit",
