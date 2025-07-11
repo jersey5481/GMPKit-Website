@@ -21,9 +21,9 @@ interface SectionProps {
 
 /* Tailwind helpers */
 const backgroundClasses: Record<Background, string> = {
-  white: "bg-white",
-  gray: "bg-gray-50",
-  primary: "bg-primary text-primary-foreground",
+  white: "bg-white dark:bg-gray-900",
+  gray: "bg-gray-50 dark:bg-gray-800",
+  primary: "bg-primary text-primary-foreground dark:bg-secondary dark:text-secondary-foreground",
 }
 
 const paddingClasses: Record<Padding, string> = {

@@ -1,7 +1,10 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
+import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
+import "@/styles/globals.css"
+import "@/styles/youtube-embed.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema"
@@ -28,14 +31,11 @@ export const metadata: Metadata = {
   description:
     "Transform your batch operations with GMPKit's BatchTrak™ platform. Real-time visibility, LEAN principles, and GMP compliance for pharmaceutical, biotech, and manufacturing companies.",
   keywords: [
-    "batch manufacturing software",
-    "pharmaceutical manufacturing",
-    "biotech operations",
-    "GMP compliance software",
-    "batch tracking system",
-    "manufacturing execution system",
-    "LEAN manufacturing",
-    "batch operations platform",
+    "Operations Leadership Development Program",
+    "LEAN Manufacturing Software",
+    "GMP Performance",
+    "GMP Consultants",
+    "Batch Tracking System"
   ],
   authors: [{ name: "GMPKit, LLC" }],
   creator: "GMPKit, LLC",
@@ -80,6 +80,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}
           <Toaster />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

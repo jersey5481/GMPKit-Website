@@ -9,15 +9,17 @@ export interface SEOConfig {
     title?: string
     description?: string
     image?: string
-    type?: string
+    type?: 'website' | 'article' | 'book' | 'profile' | 'music.song' | 'music.album' | 
+          'music.playlist' | 'music.radio_station' | 'video.movie' | 'video.episode' | 
+          'video.tv_show' | 'video.other'
   }
   twitter?: {
-    card?: string
+    card?: 'summary' | 'summary_large_image' | 'player' | 'app'
     title?: string
     description?: string
     image?: string
   }
-  structuredData?: object
+  structuredData?: Record<string, any>
 }
 
 const baseUrl = "https://www.gmpkit.com"
@@ -32,7 +34,9 @@ export function generateMetadata(config: SEOConfig): Metadata {
     title: fullTitle,
     description,
     keywords: keywords.join(", "),
-    canonical: canonical || baseUrl,
+    alternates: {
+      canonical: canonical || baseUrl,
+    },
     robots: {
       index: true,
       follow: true,
@@ -58,18 +62,15 @@ export function generateMetadata(config: SEOConfig): Metadata {
         },
       ],
       locale: "en_US",
-      type: openGraph.type || "website",
+      type: openGraph.type || "website" as 'website',
     },
     twitter: {
-      card: twitter.card || "summary_large_image",
+      card: (twitter.card || "summary_large_image") as 'summary_large_image',
       title: twitter.title || fullTitle,
       description: twitter.description || description,
       images: [twitter.image || defaultImage],
       creator: "@gmpkit",
       site: "@gmpkit",
-    },
-    alternates: {
-      canonical: canonical || baseUrl,
     },
     verification: {
       google: "your-google-verification-code", // Replace with actual verification code
@@ -244,5 +245,20 @@ export function generateServiceSchema(serviceName: string, description: string) 
     },
     areaServed: "Worldwide",
     serviceType: "Business Consulting",
+  }
+}
+
+export function generateFAQSchema(faqs: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
   }
 }

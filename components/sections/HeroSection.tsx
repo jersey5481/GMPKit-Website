@@ -64,7 +64,7 @@ export default function HeroSection() {
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
           Your Operational Backbone for <span className="text-primary">Batch Manufacturing</span>
         </h1>
-        <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-4xl mx-auto leading-relaxed">
+        <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
           Empowering biopharma manufacturers to increase success rates, reduce deviations, and eliminate backlogs with
           real-time batch visibility. <br />
           <strong>All in one view.</strong>
@@ -77,11 +77,11 @@ export default function HeroSection() {
         </div>
 
         {/* Trust indicators */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center pt-8 border-t border-gray-200">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center pt-8 border-t border-gray-200 dark:border-gray-700">
           {SHARED_CONTENT.stats.map((stat, index) => (
             <div key={index}>
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-1">{stat.number}</div>
-              <p className="text-sm text-gray-600">{stat.label}</p>
+              <div className="text-2xl md:text-3xl font-bold text-primary dark:text-primary mb-1">{stat.number}</div>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{stat.label}</p>
             </div>
           ))}
         </div>

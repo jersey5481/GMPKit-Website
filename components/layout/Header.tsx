@@ -4,7 +4,13 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 interface HeaderProps {
   currentPage?: string
@@ -15,6 +21,14 @@ const navigationLinks = [
   { href: "/implementation", label: "Implementation" },
   { href: "/training", label: "Training" },
   { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
+]
+
+const resourcesLinks = [
+  { href: "/blog/category/whitepapers", label: "White Papers" },
+  { href: "/blog/category/lean-leadership-skills", label: "LEAN Leadership Skills" },
+  { href: "/blog/category/lean-tools", label: "LEAN Tools" },
+  { href: "/faqs", label: "FAQs" },
 ]
 
 export default function Header({ currentPage }: HeaderProps) {
@@ -42,6 +56,20 @@ export default function Header({ currentPage }: HeaderProps) {
               {link.label}
             </Link>
           ))}
+          
+          {/* Resources Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium hover:text-primary">
+              Resources <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {resourcesLinks.map((link) => (
+                <DropdownMenuItem key={link.href} asChild>
+                  <Link href={link.href}>{link.label}</Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
 
         <div className="hidden md:flex gap-3">
@@ -78,6 +106,22 @@ export default function Header({ currentPage }: HeaderProps) {
                 {link.label}
               </Link>
             ))}
+            {/* Resources Section in Mobile Menu */}
+            <div className="pt-2 border-t">
+              <h3 className="text-sm font-medium mb-2">Resources</h3>
+              <div className="flex flex-col gap-2 pl-2">
+                {resourcesLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm hover:text-primary"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
             <div className="flex flex-col gap-2 pt-2 border-t">
               <Button variant="outline" size="sm" asChild>
                 <a href="/contact">Contact Us</a>

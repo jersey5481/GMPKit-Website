@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { generateMetadata as generateSEOMetadata, seoConfigs, generateServiceSchema } from "@/lib/seo"
 import type { Metadata } from "next"
 import { Zap, Target, Users } from "lucide-react"
+import Image from "next/image"
 
 export const metadata: Metadata = generateSEOMetadata(seoConfigs.about)
 
@@ -18,7 +19,26 @@ export default function AboutPage() {
       {/* Hero: The Team Behind BatchTrak */}
       <Section background="gray" padding="xl" className="text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">The Team Behind BatchTrak™</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <div className="flex flex-col items-center space-y-[-0.6em]">
+              <div className="flex items-center justify-center gap-3">
+                <div className="flex items-center">
+                  <Image
+                    src="/images/batchtrak-logo-new.png"
+                    width={280}
+                    height={84}
+                    alt="BatchTrak™"
+                    className="h-[4.46em] w-auto"
+                    priority
+                  />
+                </div>
+                <span>Team</span>
+              </div>
+              <div className="w-full text-center">
+                <span className="text-primary">The Experts Behind the Platform</span>
+              </div>
+            </div>
+          </h1>
           <p className="text-lg text-gray-600">
             Supporting biopharma manufacturers who demand both operational excellence and trust. We built BatchTrak™
             because we lived the pain of broken batch operations. As former operations and quality leaders in biotech,

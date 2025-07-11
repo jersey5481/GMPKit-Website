@@ -42,8 +42,8 @@ export default function CTASection({
   return (
     <Section background={background} padding="xl">
       <div className="max-w-4xl mx-auto text-center space-y-6">
-        <h2 className="text-4xl font-bold">{title}</h2>
-        <p className="text-xl text-gray-600">{description}</p>
+        <h2 className="text-4xl font-bold dark:text-white">{title}</h2>
+        <p className="text-xl text-gray-600 dark:text-gray-300">{description}</p>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           {/* Primary */}

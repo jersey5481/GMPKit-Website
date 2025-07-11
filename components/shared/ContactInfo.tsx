@@ -66,7 +66,6 @@ export default function ContactInfo({
           <div>
             <h3 className="font-semibold mb-1">Response Time</h3>
             <p className="text-gray-600">Within 24 hours</p>
-            <p className="text-sm text-gray-500">For urgent matters, please call directly</p>
           </div>
         </div>
       )}

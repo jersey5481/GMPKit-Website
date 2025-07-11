@@ -25,7 +25,7 @@ export default function WhyBatchTrakSection() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Why Most Batch Operations Break Down</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Even the best teams struggle when their systems can't keep up with the complexity of scaling up batch
             manufacturing. Critical KPIs suffer—more lost batches, longer review cycles, and delayed dispositions—while
             business outcomes fall short.
@@ -34,12 +34,12 @@ export default function WhyBatchTrakSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {problems.map((problem, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-red-100">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-50 mb-4">
-                <problem.icon className="h-6 w-6 text-red-600" />
+            <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-red-100 dark:border-red-900">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-50 dark:bg-red-900/30 mb-4">
+                <problem.icon className="h-6 w-6 text-red-600 dark:text-red-400" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">{problem.title}</h3>
-              <p className="text-gray-600">{problem.description}</p>
+              <h3 className="text-xl font-semibold mb-2 dark:text-white">{problem.title}</h3>
+              <p className="text-gray-600 dark:text-gray-300">{problem.description}</p>
             </div>
           ))}
         </div>

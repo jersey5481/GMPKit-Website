@@ -2,13 +2,16 @@ import PageLayout from "@/components/layout/PageLayout"
 import Section from "@/components/ui/Section"
 import FAQCategory from "@/components/ui/FAQCategory"
 import ContactSupport from "@/components/faqs/ContactSupport"
-import { faqCategories, getFAQsByCategory } from "@/lib/faq-data"
-import { generateMetadata as generateSEOMetadata, seoConfigs } from "@/lib/seo"
+import { faqCategories, getFAQsByCategory, faqData } from "@/lib/faq-data"
+import { generateMetadata as generateSEOMetadata, seoConfigs, generateFAQSchema } from "@/lib/seo"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = generateSEOMetadata(seoConfigs.faqs)
 
 export default function FAQsPage() {
+  // Generate FAQ schema for structured data
+  const faqSchema = generateFAQSchema(faqData);
+
   return (
     <PageLayout>
       {/* Hero Section */}
@@ -37,6 +40,14 @@ export default function FAQsPage() {
           <ContactSupport />
         </div>
       </Section>
+
+      {/* Add FAQ structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema),
+        }}
+      />
     </PageLayout>
   )
 }

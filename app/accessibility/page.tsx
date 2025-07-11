@@ -121,13 +121,8 @@ export default function AccessibilityPage() {
                   <strong>Accessibility Coordinator</strong>
                   <br />
                   <strong>Email:</strong>{" "}
-                  <a href="mailto:accessibility@gmpkit.com" className="text-primary hover:underline">
-                    accessibility@gmpkit.com
-                  </a>
-                  <br />
-                  <strong>Phone:</strong>{" "}
-                  <a href="tel:+18173818767" className="text-primary hover:underline">
-                    (817) 381-8767
+                  <a href="mailto:support@gmpkit.com" className="text-primary hover:underline">
+                    support@gmpkit.com
                   </a>
                   <br />
                   <strong>Mail:</strong>

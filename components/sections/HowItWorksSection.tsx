@@ -35,7 +35,7 @@ export default function HowItWorksSection() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">How It Works</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             From assessment to optimization, we guide you through every step of transforming your batch operations.
           </p>
         </div>
@@ -49,17 +49,17 @@ export default function HowItWorksSection() {
               </div>
 
               {/* Icon */}
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 mx-auto mb-4">
-                <step.icon className="h-8 w-8 text-primary" />
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 mx-auto mb-4">
+                <step.icon className="h-8 w-8 text-primary dark:text-primary" />
               </div>
 
               {/* Content */}
-              <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-              <p className="text-sm text-gray-600">{step.description}</p>
+              <h3 className="text-lg font-semibold mb-2 dark:text-white">{step.title}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{step.description}</p>
 
               {/* Connector line (except for last item) */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gray-200 -translate-x-4"></div>
+                <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gray-200 dark:bg-gray-700 -translate-x-4"></div>
               )}
             </div>
           ))}

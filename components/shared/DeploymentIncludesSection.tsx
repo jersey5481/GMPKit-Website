@@ -1,5 +1,7 @@
 import Section from "@/components/ui/Section"
 import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 interface DeploymentIncludesSectionProps {
   title?: string
@@ -30,10 +32,10 @@ export default function DeploymentIncludesSection({
         </div>
 
         <div className={`grid ${showCaricature ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"} gap-12 items-center`}>
-          <div>
+          <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {deploymentIncludes.map((item, index) => (
-                <div key={index} className="flex items-start space-x-3">
+                <div key={index} className="flex items-start space-x-3 pl-8 md:pl-16">
                   <div className="flex-shrink-0 w-2 h-2 bg-primary rounded-full mt-2"></div>
                   <span className="text-gray-700">{item}</span>
                 </div>
@@ -52,6 +54,12 @@ export default function DeploymentIncludesSection({
               />
             </div>
           )}
+        </div>
+        
+        <div className="mt-10 text-center">
+          <Button size="lg" variant="default" asChild>
+            <Link href="/implementation">Learn More About Our Implementation</Link>
+          </Button>
         </div>
       </div>
     </Section>

@@ -4,6 +4,7 @@ import { CheckCircle, Users, Award, BookOpen, Monitor, Zap } from "lucide-react"
 import { generateMetadata as generateSEOMetadata, seoConfigs, generateServiceSchema } from "@/lib/seo"
 import type { Metadata } from "next"
 import CTASection from "@/components/shared/CTASection"
+import Image from "next/image"
 
 export const metadata: Metadata = generateSEOMetadata(seoConfigs.training)
 
@@ -57,15 +58,39 @@ export default function TrainingPage() {
       {/* Hero Section */}
       <Section background="gray" padding="xl" className="text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            BatchTrak™ Training: Build Capabilities That Drive Results
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <div className="flex flex-col items-center space-y-[-0.6em]">
+              <div className="flex items-center justify-center gap-3">
+                <div className="flex items-center">
+                  <Image
+                    src="/images/batchtrak-logo-new.png"
+                    width={280}
+                    height={84}
+                    alt="BatchTrak™"
+                    className="h-[4.46em] w-auto"
+                    priority
+                  />
+                </div>
+                <span>Training</span>
+              </div>
+              <div className="w-full text-center">
+                <span className="text-primary">Build Capabilities That Drive Results</span>
+              </div>
+            </div>
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-lg mb-8">
             Our training programs don't just teach software features—they develop the operational thinking and
             leadership skills your team needs to maximize BatchTrak™ value and drive continuous improvement. Guided by
             our proprietary checklist, training is strategically targeted to address the root causes and focus exactly
             where the problems are.
           </p>
+          
+          <div className="bg-gradient-to-br from-[#e6f7df] to-[#f2faea] p-8 rounded-lg shadow-xl max-w-4xl mx-auto mb-8">
+            <h3 className="text-2xl font-bold mb-6 text-center">Training Included with Every BatchTrak™ Package</h3>
+            <p className="text-lg text-gray-700 mb-4 text-center">
+              Every BatchTrak™ engagement includes role-based training, hands-on coaching, and ongoing support—ensuring your team is ready to succeed from day one.
+            </p>
+          </div>
         </div>
       </Section>
 
@@ -203,7 +228,6 @@ export default function TrainingPage() {
         title="Ready to Empower Your Team with BatchTrak™?"
         description="Our training programs are designed to accelerate adoption, build confidence, and create lasting operational improvements. Let's discuss which programs are right for your team."
         primaryButton={{ text: "Schedule Training Consultation", href: "/contact" }}
-        secondaryButton={{ text: "Download Training Overview" }}
       />
 
       {/* Add structured data */}

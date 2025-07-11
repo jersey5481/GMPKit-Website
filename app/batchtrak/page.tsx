@@ -3,8 +3,9 @@ import Section from "@/components/ui/Section"
 import FeatureCard from "@/components/ui/FeatureCard"
 import ValueMetricsSection from "@/components/shared/ValueMetricsSection"
 import DeploymentIncludesSection from "@/components/shared/DeploymentIncludesSection"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Monitor, Workflow, Brain, CheckCircle, AlertTriangle, Eye, TrendingDown } from "lucide-react"
+import { Monitor, Workflow, Brain, CheckCircle, AlertTriangle, Eye, TrendingDown, Clock } from "lucide-react"
 import { generateMetadata as generateSEOMetadata, seoConfigs, generateSoftwareApplicationSchema } from "@/lib/seo"
 import type { Metadata } from "next"
 import Image from "next/image"
@@ -18,7 +19,7 @@ const batchTrakFeatures = [
     subtitle: "Know exactly what's happening—in every batch, at every site, in real time.",
     items: [
       "Unified dashboard for multi-site batch tracking",
-      "Intelligent alerts for deviations and delays",
+      "Intelligent alerts for escalations and delays",
       "Role-based views for QA, Ops, and Leadership",
       "Catch issues before they become escalations",
     ],
@@ -41,7 +42,7 @@ const batchTrakFeatures = [
     items: [
       "AI-enabled analytics",
       "LEAN + Theory of Constraints foundations",
-      "Deviation response and decision-support tools",
+      "Deviation prevention and decision-support tools",
       "Role-based onboarding and training",
     ],
     buttonLabel: "See How We Train Teams",
@@ -141,8 +142,8 @@ export default function BatchTrakPage() {
             guesswork, reduces waste, and drives continuous improvement through structured, role-based workflows.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button variant="outline" size="lg">
-              Schedule Discovery Call
+            <Button variant="outline" size="lg" asChild>
+              <Link href="/contact">Schedule Discovery Call</Link>
             </Button>
           </div>
         </div>
@@ -160,7 +161,7 @@ export default function BatchTrakPage() {
               </h3>
               <p className="text-gray-600 mb-6">
                 Every manufacturing batch goes through multiple steps—manufacturing, document review, deviation
-                investigation, testing. BatchTrak™ tracks each step in real-time, so you always know:
+                investigation, and testing. BatchTrak™ tracks each step in real-time, so you always know:
               </p>
               <ul className="space-y-3 text-gray-600">
                 <li className="flex items-start">
@@ -183,12 +184,42 @@ export default function BatchTrakPage() {
             </div>
           </div>
 
-          <div className="bg-blue-50 p-8 rounded-lg text-center">
-            <h3 className="text-2xl font-bold mb-4">The Bottom Line</h3>
-            <p className="text-lg text-gray-700">
+          <div className="bg-gradient-to-br from-[#e6f7df] to-[#f2faea] p-8 rounded-lg shadow-xl">
+            <h3 className="text-2xl font-bold mb-6 text-center">The Bottom Line</h3>
+            <p className="text-lg text-gray-700 mb-8 text-center">
               BatchTrak™ replaces the chaos of spreadsheets, emails, and phone calls with one clear system that everyone
-              can see and use. Your team spends less time hunting for information and more time making great products.
+              can see and use. Your team spends less time hunting for information and more time moving the KPIs that matter:
             </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+              <div className="bg-white p-5 rounded-lg shadow-lg flex flex-col items-center h-full">
+                <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                  <TrendingDown className="h-6 w-6 text-green-600 transform rotate-180" />
+                </div>
+                <p className="font-semibold text-gray-800 text-center whitespace-nowrap text-sm">Increasing success rate</p>
+              </div>
+              
+              <div className="bg-white p-5 rounded-lg shadow-lg flex flex-col items-center h-full">
+                <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                  <AlertTriangle className="h-6 w-6 text-green-600" />
+                </div>
+                <p className="font-semibold text-gray-800 text-center whitespace-nowrap text-sm">Decreasing deviations</p>
+              </div>
+              
+              <div className="bg-white p-5 rounded-lg shadow-lg flex flex-col items-center h-full">
+                <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                  <CheckCircle className="h-6 w-6 text-green-600" />
+                </div>
+                <p className="font-semibold text-gray-800 text-center whitespace-nowrap text-sm">Adhering to schedule</p>
+              </div>
+              
+              <div className="bg-white p-5 rounded-lg shadow-lg flex flex-col items-center h-full">
+                <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                  <Clock className="h-6 w-6 text-green-600" />
+                </div>
+                <p className="font-semibold text-gray-800 text-center whitespace-nowrap text-sm">On-time disposition</p>
+              </div>
+            </div>
           </div>
         </div>
       </Section>
@@ -259,18 +290,17 @@ export default function BatchTrakPage() {
       {/* BatchTrak vs Enterprise Comparison */}
       <Section background="gray" padding="lg">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">Why Choose BatchTrak™ Over Enterprise Systems?</h2>
+          <h2 className="text-4xl font-bold mb-4">The BatchTrak™ Implementation Advantage</h2>
           <p className="text-xl text-gray-600 mb-8">
-            Get the capabilities you need without the complexity you don't. See how BatchTrak™ compares to traditional
-            enterprise solutions.
+            See how a BatchTrak™ implementation compares to a traditional enterprise deployment.
           </p>
 
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-            <div className="grid grid-cols-4 gap-4 p-6 bg-gray-50 font-semibold text-sm">
-              <div>Feature</div>
+            <div className="grid grid-cols-4 gap-4 p-6 bg-gradient-to-r from-[#e6f7df] to-[#f2faea] font-bold text-sm">
+              <div className="text-gray-800">Feature</div>
               <div className="text-primary">BatchTrak™</div>
-              <div className="text-gray-500">Enterprise Systems</div>
-              <div>Advantage</div>
+              <div className="text-gray-800">Enterprise Systems</div>
+              <div className="text-gray-800">Advantage</div>
             </div>
             {vsEnterprise.map((comparison, index) => (
               <div key={index} className="grid grid-cols-4 gap-4 p-6 border-t border-gray-100 text-sm">
@@ -302,8 +332,6 @@ export default function BatchTrakPage() {
                 title={feature.title}
                 subtitle={feature.subtitle}
                 items={feature.items}
-                buttonLabel={feature.buttonLabel}
-                onButtonClick={() => console.log(`Clicked: ${feature.buttonLabel}`)}
                 className="h-full"
               />
             ))}
@@ -350,6 +378,19 @@ export default function BatchTrakPage() {
               <p className="text-sm text-gray-600">Batch Accountability</p>
             </div>
           </div>
+        </div>
+      </Section>
+
+      {/* Call to Action Section */}
+      <Section background="primary" padding="xl">
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <h2 className="text-4xl font-bold mb-4">See BatchTrak in Action</h2>
+          <p className="text-xl mb-8">
+            Experience how BatchTrak™ can transform your batch operations with a personalized demonstration tailored to your use case.
+          </p>
+          <Button size="lg" variant="secondary" asChild>
+            <Link href="/contact">Schedule a Demo</Link>
+          </Button>
         </div>
       </Section>
     </PageLayout>

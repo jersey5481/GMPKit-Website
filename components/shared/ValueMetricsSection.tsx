@@ -35,7 +35,7 @@ interface ValueMetricsSectionProps {
 
 export default function ValueMetricsSection({
   title = "Designed to Move the Metrics That Matter",
-  description = "BatchTrak™ delivers real results—on the floor, across departments, and at the executive level.",
+  description = "BatchTrak™ delivers real results—on the floor, across departments, and at the leadership level.",
   metrics = VALUE_METRICS,
   background = "white",
 }: ValueMetricsSectionProps) {

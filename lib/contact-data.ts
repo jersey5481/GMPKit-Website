@@ -13,22 +13,11 @@ export interface ContactOption {
 
 export const contactOptions: ContactOption[] = [
   {
-    id: "chat",
+    id: "contact",
     icon: MessageCircle,
-    title: "Live Chat",
-    description: "Get instant answers from our support team",
-    buttonText: "Start Chat",
-    onClick: () => {
-      // Add your chat widget logic here
-      console.log("Starting chat...")
-    },
-  },
-  {
-    id: "email",
-    icon: Mail,
-    title: "Email Support",
-    description: "Send us your detailed questions",
-    buttonText: "Send Email",
-    href: "mailto:support@gmpkit.com",
+    title: "Contact Us",
+    description: "Get in touch with our team",
+    buttonText: "Contact Us",
+    href: "/contact",
   },
 ]
