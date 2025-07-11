@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Accessibility, X, Plus, Minus, Eye, Contrast, Type, MousePointer, RotateCcw } from "lucide-react"
+import { Accessibility, X, Plus, Minus, Eye, Contrast, Type, MousePointer, RotateCcw, Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
 
 interface AccessibilitySettings {
   fontSize: number
@@ -26,16 +27,22 @@ const defaultSettings: AccessibilitySettings = {
 export default function AccessibilityWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const [settings, setSettings] = useState<AccessibilitySettings>(defaultSettings)
+  const { theme, setTheme } = useTheme()
 
   // Load settings from localStorage on mount
   useEffect(() => {
     const savedSettings = localStorage.getItem("accessibility-settings")
     if (savedSettings) {
-      setSettings(JSON.parse(savedSettings))
+      const parsedSettings = JSON.parse(savedSettings)
+      setSettings(parsedSettings)
     }
   }, [])
+  
+  // We don't need to sync theme changes back to settings
+  // This was causing an infinite loop with the other useEffect
+  // that syncs settings.darkMode to theme
 
-  // Apply settings to document
+  // Apply accessibility settings to document
   useEffect(() => {
     const root = document.documentElement
 
@@ -47,13 +54,6 @@ export default function AccessibilityWidget() {
       root.classList.add("accessibility-high-contrast")
     } else {
       root.classList.remove("accessibility-high-contrast")
-    }
-
-    // Dark mode
-    if (settings.darkMode) {
-      root.classList.add("dark")
-    } else {
-      root.classList.remove("dark")
     }
 
     // Larger cursor
@@ -80,6 +80,15 @@ export default function AccessibilityWidget() {
     // Save to localStorage
     localStorage.setItem("accessibility-settings", JSON.stringify(settings))
   }, [settings])
+  
+  // Handle dark mode changes separately
+  useEffect(() => {
+    if (settings.darkMode && theme !== 'dark') {
+      setTheme('dark')
+    } else if (!settings.darkMode && theme === 'dark') {
+      setTheme('light')
+    }
+  }, [settings.darkMode, theme, setTheme])
 
   const updateSetting = (key: keyof AccessibilitySettings, value: any) => {
     setSettings((prev) => ({ ...prev, [key]: value }))
@@ -174,13 +183,19 @@ export default function AccessibilityWidget() {
                 {/* Dark Mode */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <Eye className="h-4 w-4 text-blue-600" />
+                    {settings.darkMode ? 
+                      <Moon className="h-4 w-4 text-blue-600" /> : 
+                      <Sun className="h-4 w-4 text-blue-600" />}
                     <span className="font-medium">Dark Mode</span>
                   </div>
                   <Button
                     variant={settings.darkMode ? "default" : "outline"}
                     size="sm"
-                    onClick={() => updateSetting("darkMode", !settings.darkMode)}
+                    onClick={() => {
+                      const newDarkMode = !settings.darkMode;
+                      updateSetting("darkMode", newDarkMode);
+                      setTheme(newDarkMode ? 'dark' : 'light');
+                    }}
                     className="w-full"
                   >
                     {settings.darkMode ? "Disable" : "Enable"} Dark Mode
