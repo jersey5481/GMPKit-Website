@@ -106,7 +106,6 @@ export default function Header({ currentPage }: HeaderProps) {
                 {link.label}
               </Link>
             ))}
-            
             {/* Resources Section in Mobile Menu */}
             <div className="pt-2 border-t">
               <h3 className="text-sm font-medium mb-2">Resources</h3>

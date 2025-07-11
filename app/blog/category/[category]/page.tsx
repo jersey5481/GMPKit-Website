@@ -27,13 +27,35 @@ interface CategoryPageProps {
   };
 }
 
+// Get category details for metadata
+async function getCategoryForMetadata(categoryParam: string) {
+  const client = getClient();
+  const decodedCategory = decodeURIComponent(categoryParam);
+  
+  try {
+    return await client.fetch(`*[_type == "category" && (title == $category || slug.current == $category)][0] {
+      title,
+      description
+    }`, { category: decodedCategory });
+  } catch (error) {
+    console.error('Error fetching category for metadata:', error);
+    return null;
+  }
+}
+
 // Generate metadata for the page
-export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const decodedCategory = decodeURIComponent(params.category);
+export async function generateMetadata(
+  { params }: CategoryPageProps
+): Promise<Metadata> {
+  // In Next.js App Router, we need to properly handle dynamic params
+  const categoryParam = params.category;
+  const category = await getCategoryForMetadata(categoryParam);
+  
+  const title = category?.title || decodeURIComponent(categoryParam);
   
   return {
-    title: `${decodedCategory} | Blog | GMPKit`,
-    description: `Browse all articles in the ${decodedCategory} category on GMPKit's blog.`,
+    title: `${title} | Blog | GMPKit`,
+    description: category?.description || `Browse all articles in the ${title} category on GMPKit's blog.`,
   };
 }
 
@@ -50,18 +72,18 @@ export async function generateStaticParams() {
       category: encodeURIComponent(category.slug),
     }));
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    console.error('Error generating static paths:', error);
     return [];
   }
 }
 
 // Get posts by category
-async function getPostsByCategory(category: string): Promise<Post[]> {
+async function getPostsByCategory(categoryParam: string): Promise<Post[]> {
   const client = getClient();
-  const decodedCategory = decodeURIComponent(category);
+  const decodedCategory = decodeURIComponent(categoryParam);
   
   try {
-    return await client.fetch(`*[_type == "post" && $category in categories[]->title] | order(publishedAt desc) {
+    return await client.fetch(`*[_type == "post" && ($category in categories[]->title || $category in categories[]->slug.current)] | order(publishedAt desc) {
       _id,
       title,
       slug,
@@ -82,34 +104,40 @@ async function getPostsByCategory(category: string): Promise<Post[]> {
 }
 
 // Get category details
-async function getCategoryDetails(category: string) {
+async function getCategoryDetails(categoryParam: string) {
   const client = getClient();
-  const decodedCategory = decodeURIComponent(category);
+  const decodedCategory = decodeURIComponent(categoryParam);
   
   try {
-    const categoryData = await client.fetch(`*[_type == "category" && title == $category][0] {
+    return await client.fetch(`*[_type == "category" && (title == $category || slug.current == $category)][0] {
       title,
       description,
-      "slug": title,
+      slug,
       includeInNavigation
     }`, { category: decodedCategory });
-    
-    return categoryData;
   } catch (error) {
     console.error('Error fetching category details:', error);
     return null;
   }
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
-  const decodedCategory = decodeURIComponent(params.category);
-  const posts = await getPostsByCategory(params.category);
-  const categoryDetails = await getCategoryDetails(params.category);
+export default async function CategoryPage(
+  { params }: CategoryPageProps
+) {
+  // Get the category parameter directly without awaiting it
+  const categoryParam = params.category;
+  
+  // Use the parameter in async functions
+  const posts = await getPostsByCategory(categoryParam);
+  const categoryDetails = await getCategoryDetails(categoryParam);
   
   // If category doesn't exist, return 404
   if (!categoryDetails) {
     notFound();
   }
+  
+  // Decode the category for display
+  const decodedCategory = categoryDetails.title || decodeURIComponent(categoryParam);
   
   // Filter posts that should be included in feed (based on memory)
   const displayPosts = posts.filter(post => post.includeInFeed !== false);

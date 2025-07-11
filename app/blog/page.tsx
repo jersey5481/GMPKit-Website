@@ -5,6 +5,7 @@ import { urlFor } from '@/lib/sanity';
 import PageLayout from '@/components/layout/PageLayout';
 import { Metadata } from 'next';
 import CategoryList from '@/components/blog/CategoryList';
+import BlogNavCards from '@/components/blog/BlogNavCards';
 
 export const metadata: Metadata = {
   title: 'Blog | GMPKit',
@@ -61,7 +62,7 @@ export default async function BlogPage() {
       <section className="bg-gradient-to-b from-primary/10 to-background py-12">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Blog</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">Insights, updates, and best practices for batch manufacturing operations</p>
+          <p className="text-lg text-muted-foreground max-w-2xl">Expert knowledge and practical resources for GMP compliance and operational excellence</p>
         </div>
       </section>
       
@@ -69,6 +70,9 @@ export default async function BlogPage() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Main Content */}
           <div className="lg:w-3/4">
+            {/* Navigation Cards Section */}
+            <BlogNavCards />
+            
             {/* Featured Posts Section */}
             {featuredPosts.length > 0 && (
               <div className="mb-16">
@@ -126,7 +130,7 @@ export default async function BlogPage() {
                                     key={`tag-${tag}`}
                                     className="bg-secondary/20 text-secondary-foreground text-xs px-2 py-1 rounded-full"
                                   >
-                                    #{tag}
+                                    {tag}
                                   </span>
                                 ))
                               }

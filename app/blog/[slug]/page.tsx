@@ -347,7 +347,7 @@ export default async function BlogPost(props: { params: { slug: string } }) {
             <h3 className="text-lg font-medium mb-4">Tags</h3>
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag: string) => (
-                <span key={`tag-${tag}`} className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full">
+                <span key={`tag-${tag}`} className="bg-secondary/20 text-secondary-foreground text-xs px-2 py-1 rounded-full">
                   {tag}
                 </span>
               ))}
